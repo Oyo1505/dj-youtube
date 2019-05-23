@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {Fragment} from 'react';
+import Turntable from './Turntable';
+import AudioMixer from './AudioMixer';
 
 export default class DjApp extends React.Component {
 	/*static propTypes = {
@@ -11,7 +13,15 @@ export default class DjApp extends React.Component {
 
 	render() {
 		return (
-			<div>Hey</div>
+			<div id="dj-youtube" >
+				<div className="turntable-container">
+					<div className="container-dj-app"> 
+						<Turntable />
+						<AudioMixer />
+						<Turntable />
+					</div>
+				</div>
+			</div>	
 		);
 	}
 }

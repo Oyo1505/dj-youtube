@@ -1,0 +1,71 @@
+#dj-youtube {
+    background-image: linear-gradient(to right, #4B5F6E, #D9C1BB);
+    /*height: 100%;*/
+}
+
+.turntable-container {
+
+    width: 100%;
+
+    margin: 0 auto;
+    position: relative;
+    @include clearfix;
+
+}
+
+.container-dj-app {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .module-dj {
+        width: 80%;
+        /*border:1px solid #000;*/
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+}
+
+/*PANEL DECK*/
+.panel-back {
+    box-shadow: 0 5px 22px 0 rgba(0, 0, 0, .29);
+    border: 0 solid #a8b6c2;
+    background-color: #303d49;
+
+}
+
+.panel-deck {
+    min-height: 525px;
+
+}
+
+.panel-default {
+    border-radius: 4px;
+    /*padding-left: 10px;*/
+    /*padding-right: 10px;*/
+}
+
+/*MEDIA 768PX*/
+@media only screen and (min-width: 768px) {
+
+    .container-dj-app {
+        flex-direction: row;
+
+        .module-dj {
+            width: 40%
+        }
+    }
+
+}
+
+/*MEDIA 1030*/
+@media only screen and (min-width: 1030px) {
+    .turntable-container {
+        width: 1320px;
+    }
+}
