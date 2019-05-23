@@ -1,9 +1,6 @@
 import React from 'react';
-
+import VolumeController from './VolumeController'
 class AudioMixer extends React.Component {
-	/*static propTypes = {
-		name: React.PropTypes.string,
-	};*/
 
 	constructor(props) {
 		super(props);
@@ -14,7 +11,7 @@ class AudioMixer extends React.Component {
 			<div className="module-dj audio-mixer-panel"> 
 				
 				<div className="panel-back panel-default panel-sound-control">
-					TEST
+					<VolumeController />
 				</div>
 				<div className=" panel-default panel-video-audio-mixer">
 					video
