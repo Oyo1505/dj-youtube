@@ -11,8 +11,17 @@ class AudioMixer extends React.Component {
 
 	render() {
 		return (
-			<div className="module-dj"> 
-				<div className="panel-back panel-default"></div>
+			<div className="module-dj audio-mixer-panel"> 
+				
+				<div className="panel-back panel-default panel-sound-control">
+					TEST
+				</div>
+				<div className=" panel-default panel-video-audio-mixer">
+					video
+				</div>
+				<div className="panel-back panel-default social-media-panel">
+					TROISIEME
+				</div>
 			</div>
 		);
 	}

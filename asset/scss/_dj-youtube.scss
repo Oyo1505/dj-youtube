@@ -30,6 +30,12 @@
         padding-left: 15px;
     }
 }
+.input-dj-video{
+    .input-dj-video-panel{
+        width: 100%;
+    }
+}
+
 
 /*PANEL DECK*/
 .panel-back {
@@ -46,10 +52,22 @@
 
 .panel-default {
     border-radius: 4px;
-    /*padding-left: 10px;*/
-    /*padding-right: 10px;*/
 }
 
+/*AUDIO MIXER PANEL*/
+.panel-sound-control{
+    min-height: 200px;
+}
+.social-media-panel{
+    min-height: 150px;
+}
+.audio-mixer-panel{
+    display: flex;
+    flex-direction: column;
+}
+.panel-video-audio-mixer{
+    min-height: 100px;
+}
 /*MEDIA 768PX*/
 @media only screen and (min-width: 768px) {
 
