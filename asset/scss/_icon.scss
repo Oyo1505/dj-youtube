@@ -1,0 +1,313 @@
+/*ICONS*/
+
+
+
+$icon-layout : smart;
+
+
+
+.icon {
+    display: inline-block;
+    vertical-align: middle;
+    color: #000;
+}
+
+
+.icon-left {
+    height: 31px;
+    width: 75px;
+    background-image: url('../../images/icon-left.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 0 10px 0;
+
+}
+
+.icon-right {
+    height: 31px;
+    width: 75px;
+    background-image: url('../../images/icon-right.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 0 10px 0;
+
+}
+
+.section-icon {
+
+    height: 55px;
+    width: 55px;
+    background-image: url('../../images/icon/section-icon.png');
+    background-repeat: no-repeat;
+
+    margin-top: -27.5px;
+    position: absolute;
+    /* postulat de départ */
+    left: 45%;
+
+}
+
+.section-icon-2 {
+    height: 55px;
+    width: 55px;
+    background-image: url('../../images/icon/section-icon-2.png');
+    background-repeat: no-repeat;
+
+    margin-top: -27.5px;
+    position: absolute;
+    /* postulat de départ */
+    left: 45%;
+
+}
+
+.icon-placeholder {
+    height: 31px;
+    width: 22px;
+    background-image: url('../../images/icon/placeholder.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-vinyl {
+    height: 64px;
+    width: 64px;
+    background-image: url('../../images/icon/vinyl.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-plane {
+    height: 64px;
+    width: 64px;
+    background-image: url('../../images/icon/plane.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-gamepad {
+    height: 64px;
+    width: 64px;
+    background-image: url('../../images/icon/gamepad.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-saturn {
+    height: 64px;
+    width: 64px;
+    background-image: url('../../images/icon/saturn.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-camera {
+    height: 64px;
+    width: 64px;
+    background-image: url('../../images/icon/atomic.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-atomic {
+    height: 64px;
+    width: 64px;
+    background-image: url('../../images/icon/camera.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-french {
+    height: 48px;
+    width: 48px;
+    background-image: url('../../images/icon/french.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 5px;
+}
+
+.icon-uk {
+    height: 48px;
+    width: 48px;
+    background-image: url('../../images/icon/uk.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-top {
+    height: 55px;
+    width: 100px;
+    background-image: url('../../images/icon/go-to-top.png');
+    background-repeat: no-repeat;
+
+    margin-top: -42.5px;
+    position: absolute;
+    /* postulat de départ */
+    left: 48%;
+}
+
+.icon-twitter {
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/icon/twitter.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-like {
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/icon/like.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-like-red {
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/icon/like-red.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.icon-like-white {
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/icon/like-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.icon-share {
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/icon/share.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.icon-pullup {
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/icon/pullup.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.icon-keyboard {
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/icon/keyboard.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.icon-edit {
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/icon/edit.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-facebook {
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/icon/fb.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+.icon-linkedin {
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/icon/lik.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-twitch {
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/icon/twitch.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-github {
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/icon/github.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-instagram {
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/icon/instagram.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.icon-download {
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/icon/download.png');
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+.icon-volume {
+    position: absolute;
+    top: -30px;
+    left: 0;
+    right: 0;
+    height: 16px;
+    background-image: url('../../images/icon/speaker.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.icon-double-arrow{
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/icon/double-arrow.png');
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+
+.icon-play {
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/play.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.icon-back {
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/icon/left-arrow.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: 10px;
+}
+.icon-play-soundbox {
+    float: right;
+}
+
+.icon-pause {
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/pause.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    float: right;
+
+}
+
+@media only screen and (min-width: 481px) {
+    .section-icon {
+        left: 48%;
+    }
+
+    .section-icon-2 {
+        left: 48%;
+    }
+}

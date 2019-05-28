@@ -52,7 +52,39 @@
 .panel-default {
     border-radius: 4px;
 }
+/*END OF PANEL DECK*/
+/*PANEL TURNTABLE*/
+.panel-turntable{
+ 
+    .progressbar-music{
+        min-height: 75px;
+    }
+    .panel-body-turntable{
+         padding: 15px;
+        img{
+            width: 50%
+        }
+       
+    }
 
+    .range-speed-containter{
+        height: 130px;
+        .range-speed{
+        cursor: pointer;
+         width: 100px !important;
+        -webkit-appearance: none; 
+        z-index: 200; 
+     }
+    }
+
+    .range-song-duration{
+        width: 100%;
+        padding: 20px;
+        background-color: transparent;
+    }
+
+}
+/*END OF TPANEL TURNATBLE*/
 /*AUDIO MIXER PANEL*/
 .panel-sound-control{
     position: relative;
@@ -69,11 +101,17 @@
     align-items: center;
     min-height: 150px;
     justify-content: space-between;
+    h5{
+        color: #CFDCE3;
+    }
+    .volume-slider{
+        position: relative;
+    }
     .volume-range-input{
           background-color: transparent;
           position: relative;
           transform: rotate(-90deg);
-          width: 24%;
+          width: 80%;
           margin-top: 40px;
           align-items: center;
        
@@ -102,9 +140,27 @@
   width: 80%;
     
 }
+
+/*SOCIAL MEDIA PANEL*/
+.social-media-panel{
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+
+}
+
+
+/**/
+
+
 /*MEDIA 768PX*/
 @media only screen and (min-width: 768px) {
-
+    .panel-body-turntable{
+        img{
+            width: 50%
+        }
+    }
     .container-dj-app {
         flex-direction: row;
 
