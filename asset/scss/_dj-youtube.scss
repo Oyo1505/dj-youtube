@@ -1,6 +1,6 @@
 #dj-youtube {
     background-image: linear-gradient(to right, #4B5F6E, #D9C1BB);
-   min-height: 1000px;
+    min-height: 1000px;
 }
 
 .turntable-container {
@@ -30,30 +30,34 @@
         padding-left: 15px;
     }
 }
-.input-dj-video{
+
+.input-dj-video {
     position: relative;
-    .input-dj-video-panel{
+
+    .input-dj-video-panel {
         width: 100%;
     }
 
-    .result-video-dj{
-      position: absolute;
-      background-color: #FFFF;
-      color: #303D48;
-      z-index: 9;
-      display: block;
-      width: 100%;
-      top: 50px;
-      border-radius: 20px;
-      ul{
-        padding: 0;
-      }
+    .result-video-dj {
+        position: absolute;
+        background-color: #FFFF;
+        color: #303D48;
+        z-index: 9;
+        display: block;
+        width: 100%;
+        top: 50px;
+        border-radius: 20px;
+
+        ul {
+            padding: 0;
+        }
     }
 
-    .video-item-dj{
+    .video-item-dj {
         display: flex;
-        .thumbnail-video-item{
-            padding:  10px;
+
+        .thumbnail-video-item {
+            padding: 10px;
         }
     }
 }
@@ -74,46 +78,53 @@
 .panel-default {
     border-radius: 4px;
 }
+
 /*END OF PANEL DECK*/
 /*PANEL TURNTABLE*/
-.panel-turntable{
- 
-    .progressbar-music{
+.panel-turntable {
+
+    .progressbar-music {
         min-height: 75px;
     }
-    .panel-body-turntable{
-         padding: 15px;
-        img{
+
+    .panel-body-turntable {
+        padding: 15px;
+
+        img {
             width: 50%
         }
-       
+
     }
 
-    .range-speed-containter{
+    .range-speed-containter {
         height: 130px;
-        .range-speed{
+
+        .range-speed {
             cursor: pointer;
-             width: 160px !important;
-            -webkit-appearance: none; 
-            z-index: 200; 
+            width: 160px !important;
+            -webkit-appearance: none;
+            z-index: 200;
             border-radius: 20px;
-           
-         }
+
+        }
     }
- .speed-p{
-                color:#FFFF;
-                font-size: 1rem;
-}
-    .range-song-duration{
+
+    .speed-p {
+        color: #FFFF;
+        font-size: 1rem;
+    }
+
+    .range-song-duration {
         width: 100%;
         padding: 20px;
         background-color: transparent;
     }
 
 }
+
 /*END OF TPANEL TURNATBLE*/
 /*AUDIO MIXER PANEL*/
-.panel-sound-control{
+.panel-sound-control {
     position: relative;
     min-height: 200px;
     display: flex;
@@ -121,59 +132,67 @@
     align-content: flex-end;
     justify-content: center;
 }
-.ranges-volumes{
+
+.ranges-volumes {
 
     display: flex;
     flex-direction: row;
     align-items: center;
     min-height: 150px;
     justify-content: space-between;
-    h5{
+
+    h5 {
         color: #CFDCE3;
     }
-    .volume-slider{
+
+    .volume-slider {
         position: relative;
     }
-    .volume-range-input{
-          background-color: transparent;
-          position: relative;
-          transform: rotate(-90deg);
-          width: 80%;
-          margin-top: 40px;
-          align-items: center;
-       
+
+    .volume-range-input {
+        background-color: transparent;
+        position: relative;
+        transform: rotate(-90deg);
+        width: 80%;
+        margin-top: 40px;
+        align-items: center;
+
     }
 }
-.social-media-panel{
+
+.social-media-panel {
     min-height: 150px;
 }
-.audio-mixer-panel{
+
+.audio-mixer-panel {
     display: flex;
     flex-direction: column;
 
 }
-.panel-video-audio-mixer{
+
+.panel-video-audio-mixer {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
     min-height: 100px;
-    margin-top:20px;
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 
-.range-crossfader{
+.range-crossfader {
     min-height: 50px;
     width: 100%;
 }
-.crossfader{
-  width: 35%;
-  border-radius: 20px; 
-    
+
+.crossfader {
+    width: 35%;
+    border-radius: 20px;
+
 }
 
 /*SOCIAL MEDIA PANEL*/
-.social-media-panel{
+.social-media-panel {
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
@@ -181,17 +200,50 @@
 
 }
 
+.pads {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .pads-buttons {
+       
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+
+        .btn-pads {
+            border-radius: 5px;
+            color: #FFFF;
+            font-size: 1rem;
+            font-weight: lighter;
+            padding: 15px;
+            line-height: normal;
+
+        }
+
+        .icon-pads {
+            background-image: linear-gradient(-180deg, #6999a1 0, #567d84 100%);
+        }
+
+        .letters-pads {
+            border: #FFFF solid 1px;
+        }
+    }
+
+
+}
 
 /**/
 
 
 /*MEDIA 768PX*/
 @media only screen and (min-width: 768px) {
-    .panel-body-turntable{
-        img{
+    .panel-body-turntable {
+        img {
             width: 50%
         }
     }
+
     .container-dj-app {
         flex-direction: row;
 
