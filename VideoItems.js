@@ -9,6 +9,11 @@ import React from 'react';
         return newTitle;
 
     }
+    addToPlaylist = (video) => {
+    	this.props.action(video);
+    }
+
+
 
 	render() {
 		console.log(this.props.video.items)
@@ -17,7 +22,7 @@ import React from 'react';
 		if(videos){
 			videoItem = videos.map(video => {
 				console.log(video)
-				return <li className="video-item-dj"><div className="thumbnail-video-item"><img src={video.snippet.thumbnails.default.url}/></div><div> {this.replaceString(video.snippet.title)} </div></li>
+				return <li className="video-item-dj"><div className="thumbnail-video-item"><img src={video.snippet.thumbnails.default.url}/></div><div> {this.replaceString(video.snippet.title)} </div><button className="btn-add-playlist" onClick={this.addToPlaylist(video)} >Add to Playlist</button> </li>
 			})
 		}
 		return (
