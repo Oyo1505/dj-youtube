@@ -11,18 +11,18 @@ class Turntable extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { video: [] }
+		this.state = { video: null }
 	}
 
-	handleVideo = (event) => {
+	handleVideo = async (event) => {
 		
 		
 		let value = event.target.value.replace(/\s/g, "+");
-		
-		fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${value}&key=AIzaSyAlN3r_xXHhgpuwYTYFcl4c3kKZJc6rXTY`)
+
+		fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${value}&key=AIzaSyAUYnlLM70t9p7mGT7u-5odJ9c3WOXTRlE`)
 		.then(response => response.json())
 		.then(json => this.setState({video : json}))
-		console.log(this.state.video)
+		
 	}
 
 	render() {
@@ -32,8 +32,11 @@ class Turntable extends React.Component {
 				<div className="input-dj-video">
 					<Form>
 						<FormGroup>
-							<FormControl type="text" onChange={this.handleVideo} className="input-dj-video-panel" placeholder="Search song on youtube"/>
-							<VideoItems video={this.state.video}/>	  
+							<FormControl type="text" onChange={this.handleVideo} defaultValue=" " className="input-dj-video-panel" placeholder="Search song on youtube"/>
+							{this.state.video  &&
+								<VideoItems video={this.state.video}/>	  
+							}
+
   						</FormGroup>
 					</Form>
 				</div>

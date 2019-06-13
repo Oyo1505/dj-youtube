@@ -31,16 +31,29 @@
     }
 }
 .input-dj-video{
+    position: relative;
     .input-dj-video-panel{
         width: 100%;
     }
 
     .result-video-dj{
-       /* position: absolute;
-        z-index: 9;
-        display: block;*/
+      position: absolute;
+      background-color: #FFFF;
+      color: #303D48;
+      z-index: 9;
+      display: block;
+      width: 100%;
+      ul{
+        padding: 0;
+      }
     }
 
+    .video-item-dj{
+        display: flex;
+        .thumbnail-video-item{
+            padding:  10px;
+        }
+    }
 }
 
 
@@ -77,13 +90,18 @@
     .range-speed-containter{
         height: 130px;
         .range-speed{
-        cursor: pointer;
-         width: 100px !important;
-        -webkit-appearance: none; 
-        z-index: 200; 
-     }
+            cursor: pointer;
+             width: 100px !important;
+            -webkit-appearance: none; 
+            z-index: 200; 
+            border-radius: 20px;
+           
+         }
     }
-
+ .speed-p{
+                color:#FFFF;
+                font-size: 1rem;
+}
     .range-song-duration{
         width: 100%;
         padding: 20px;
