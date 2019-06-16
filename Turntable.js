@@ -23,7 +23,7 @@ class Turntable extends React.Component {
 		
 		let value = event.target.value.replace(/\s/g, "+");
 
-		fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${value}&key=AIzaSyAUYnlLM70t9p7mGT7u-5odJ9c3WOXTRlE`)
+		fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${value}&key=API_KEY`)
 		.then(response => response.json())
 		.then(json => this.setState({videos : json}))
 		
