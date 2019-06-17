@@ -12,14 +12,18 @@ export default class DjApp extends React.Component {
 
 		this.state = {
 			turntableLeft: {
+				name: "turntableLeft",
 				video: "kCGNWdrN3yw",
 				speed: 1,
 				duration:212, 
+				play:false,
 			},
 			turntableRight: {
+				name: "turntableRight",
 				video:"7IhV2nDhNAI",
 				speed: 1,
 				duration:207, 
+				play:false,
 			},
 			audioMixer: [{
 				volumeLeft:75,
@@ -28,16 +32,21 @@ export default class DjApp extends React.Component {
 			}]
 		}
 	}
-
+	onPlay = (turntable ,play) => {
+		if(turntable == turntableLeft.name){
+			this.setState({turntableLeft: { play: play}})
+		}
+		
+	}
 	render() {
-		console.log(this.state.turntableLeft)
+		
 		return (
 			<div id="dj-youtube" >
 				<div className="turntable-container">
 					<div className="container-dj-app"> 
-						<Turntable song={this.state.turntableLeft} />
+						<Turntable action={this.onPlay} song={this.state.turntableLeft} name={this.state.turntableLeft.name} />
 						<AudioMixer left={this.state.turntableLeft.video} right={this.state.turntableRight.video} levelVolume={this.state.audioMixer}/>
-						<Turntable song={this.state.turntableRight}/>
+						<Turntable action={this.onPlay} song={this.state.turntableRight} name={this.state.turntableRight.name}/>
 					</div>
 				</div>
 			</div>	

@@ -16,13 +16,12 @@ import React from 'react';
 
 
 	render() {
-		console.log(this.props.videos.items)
+	
 		var videos = this.props.videos.items;
 		var videoItem;
 		if(videos){
 			videoItem = videos.map(video => {
-				console.log(video)
-				return <li className="video-item-dj"><div className="thumbnail-video-item"><img src={video.snippet.thumbnails.default.url}/></div><div> {this.replaceString(video.snippet.title)} </div><button className="btn-add-playlist"  >Add to Playlist</button> </li>
+				return <li className="video-item-dj"><div className="thumbnail-video-item"><img src={video.snippet.thumbnails.default.url}/></div><div> <span>{this.replaceString(video.snippet.title)}</span> </div><button className="btn-add-playlist"  >Add to Playlist</button> </li>
 			})
 		}
 		return (

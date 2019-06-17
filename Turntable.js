@@ -22,7 +22,7 @@ class Turntable extends React.Component {
 		
 		let value = event.target.value.replace(/\s/g, "+");
 
-		fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${value}&key=API_KEY`)
+		fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${value}&key=AIzaSyAUYnlLM70t9p7mGT7u-5odJ9c3WOXTRlE`)
 		.then(response => response.json())
 		.then(json => this.setState({videos : json}))
 	}
@@ -48,7 +48,7 @@ class Turntable extends React.Component {
 				</div>
 					<div className="panel-deck panel-back panel-default panel-turntable">
 						<div className="progressbar-music"> 
-							<input type="range" className="range-song-duration" defaultValue="00:00"  />
+							<input type="range" className="range-song-duration" defaultValue="0"  />
 							{this.state.video &&
 								<span>{this.state.video.snippet.title}</span>
 							}
