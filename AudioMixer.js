@@ -16,8 +16,8 @@ class AudioMixer extends React.Component {
 					<VolumeController />
 				</div>
 				<div className=" panel-default panel-video-audio-mixer">
-					<VideoMiddle />
-					<VideoMiddle />
+					<VideoMiddle video={this.props.left}  />
+					<VideoMiddle video={this.props.right}  />
 				</div>
 				<div className="panel-back panel-default social-media-panel">
 					<button className="button-social-media-panel" ><i className="icon icon-like-white"></i> Like</button> 

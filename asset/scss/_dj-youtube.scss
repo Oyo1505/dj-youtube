@@ -46,7 +46,7 @@
         display: block;
         width: 100%;
         top: 50px;
-        border-radius: 20px;
+        border-radius: 5px;
 
         ul {
             padding: 0;
@@ -55,6 +55,9 @@
 
     .video-item-dj {
         display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
 
         .thumbnail-video-item {
             padding: 10px;

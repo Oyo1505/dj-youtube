@@ -20,13 +20,11 @@ class Turntable extends React.Component {
 
 	handleVideo = async (event) => {
 		
-		
 		let value = event.target.value.replace(/\s/g, "+");
 
-		fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${value}&key=API_KEY`)
+		fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${value}&key=AIzaSyAUYnlLM70t9p7mGT7u-5odJ9c3WOXTRlE`)
 		.then(response => response.json())
 		.then(json => this.setState({videos : json}))
-		
 	}
 
 	getVideoMix = ( video ) => {
@@ -42,7 +40,7 @@ class Turntable extends React.Component {
 						<FormGroup>
 							<FormControl type="text" onChange={this.handleVideo} defaultValue="" className="input-dj-video-panel" placeholder="Search song on youtube"/>
 							{this.state.videos  &&
-								<VideoItems video={this.state.videos} action={this.getVideoMix}/>	  
+								<VideoItems videos={this.state.videos}/>	  
 							}
 
   						</FormGroup>
