@@ -4,6 +4,7 @@ import SpeedRange from './SpeedRange';
 import VideoItems from './VideoItems';
 import Pads from './Pads';
 import vinyl from '../../images/vinyl-panel.png'
+
  
 class Turntable extends React.Component {
 	/*static propTypes = {
@@ -31,14 +32,19 @@ class Turntable extends React.Component {
 		this.setState({video});
 	}
 
-	render() {
+	onPlay = (bool) =>{
+		console.log(bool);
+		this.props.action(this.props.name, bool)
+	}
 
+	render() {
+		
 		return (
 			<div className="module-dj">
 				<div className="input-dj-video">
 					<Form>
 						<FormGroup>
-							<FormControl type="text" onChange={this.handleVideo} defaultValue="" className="input-dj-video-panel" placeholder="Search song on youtube"/>
+							<FormControl type="text" onChange={this.handleVideo} defaultValue="" className="input-dj-video-panel" placeholder="Search song on Youtube"/>
 							{this.state.videos  &&
 								<VideoItems videos={this.state.videos}/>	  
 							}
@@ -58,7 +64,7 @@ class Turntable extends React.Component {
 							<img src={vinyl} alt="vinyl-turntable"  />
 
 							<SpeedRange />
-							<Pads />
+							<Pads action={this.onPlay} />
 						</div>	
 					</div>
 
