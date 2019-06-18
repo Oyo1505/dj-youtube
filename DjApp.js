@@ -16,14 +16,14 @@ export default class DjApp extends React.Component {
 				video: "kCGNWdrN3yw",
 				speed: 1,
 				duration:212, 
-				play:false,
+				play:null,
 			}],
 			turntableRight: [{
 				name: "turntableRight",
 				video:"7IhV2nDhNAI",
 				speed: 1,
 				duration:207, 
-				play:false,
+				play:null,
 			}],
 			audioMixer: [{
 				volumeLeft:75,

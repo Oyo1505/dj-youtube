@@ -7,8 +7,8 @@ import React from 'react';
 }
 
 	toggle = () => {
-		this.setState({toggle:!this.state.toggle})
-		this.props.action(this.state.toggle)
+		this.setState({toggle: !this.state.toggle})
+		this.props.action(!this.state.toggle)
 	}
 
 	render() {
