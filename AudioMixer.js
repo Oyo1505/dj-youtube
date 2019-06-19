@@ -8,6 +8,11 @@ class AudioMixer extends React.Component {
 		super(props);
 	}
 
+	getDuration = (turntable, duration) => {
+		console.log(duration)
+		this.props.duration(turntable, duration)
+	}
+
 	render() {
 		return (
 			<div className="module-dj audio-mixer-panel"> 
@@ -16,8 +21,8 @@ class AudioMixer extends React.Component {
 					<VolumeController />
 				</div>
 				<div className=" panel-default panel-video-audio-mixer">
-					<VideoMiddle turntable={this.props.left}  />
-					<VideoMiddle turntable={this.props.right}  />
+					<VideoMiddle turntable={this.props.left} duration={this.getDuration} />
+					<VideoMiddle turntable={this.props.right} duration={this.getDuration} />
 				</div>
 				<div className="panel-back panel-default social-media-panel">
 					<button className="button-social-media-panel" ><i className="icon icon-like-white"></i> Like</button> 

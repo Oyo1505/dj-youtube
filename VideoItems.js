@@ -9,11 +9,15 @@ import React from 'react';
         return newTitle;
 
     }
-    addToPlaylist = (video) => {
-    	this.props.action(video);
+    addToPlaylist = (event) => {
+    	
+    	let id = event.target.dataset.id;
+    	this.props.action(id);
     }
 
+    onClear = () =>{
 
+    }
 
 	render() {
 	
@@ -21,13 +25,19 @@ import React from 'react';
 		var videoItem;
 		if(videos){
 			videoItem = videos.map(video => {
-				return <li className="video-item-dj"><div className="thumbnail-video-item"><img src={video.snippet.thumbnails.default.url}/></div><div> <span>{this.replaceString(video.snippet.title)}</span> </div><button className="btn-add-playlist"  >Add to Playlist</button> </li>
+				
+				let id = video.id.videoId
+				//console.log(id)
+				return <li key={id} className="video-item-dj"><div className="thumbnail-video-item"><img src={video.snippet.thumbnails.default.url}/></div><div> <span>{this.replaceString(video.snippet.title)}</span> </div><div className="btn-add-playlist"  data-id={id} onClick={this.addToPlaylist} >Add to Playlist</div> </li>
 			})
 		}
 		return (
 			<div className="result-video-dj panel-back">
 				<ul>
+					<a onClick={this.onClear}> clear</a>
+					<hr/>
 					{videoItem}
+
 				</ul>
 				
 			</div>
