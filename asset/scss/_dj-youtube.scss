@@ -1,6 +1,9 @@
 #dj-youtube {
     background-image: linear-gradient(to right, #4B5F6E, #D9C1BB);
     min-height: 1000px;
+    span{
+        font-family: Roboto-Thin;
+    }
 }
 
 .turntable-container {
@@ -65,7 +68,17 @@
     }
 }
 
-
+.spin{
+    -webkit-animation: spin 6s linear infinite; 
+}
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}
 /*PANEL DECK*/
 .panel-back {
     box-shadow: 0 5px 22px 0 rgba(0, 0, 0, .29);
@@ -88,6 +101,19 @@
 
     .progressbar-music {
         min-height: 75px;
+        padding: 0 10px;
+        .text-duration-left{
+            display: inline-block;
+            width: 50%;
+            text-align: left;
+            
+        }
+        .text-duration-right{
+            display: inline-block;
+            width: 50%;
+            text-align: right;
+           
+        }
     }
 
     .panel-body-turntable {
@@ -119,7 +145,7 @@
 
     .range-song-duration {
         width: 100%;
-        padding: 20px;
+       /* padding: 20px;*/
         background-color: transparent;
     }
 
@@ -205,22 +231,21 @@
 
 .pads {
     display: flex;
-    align-items: center;
     flex-direction: column;
 
     .pads-buttons {
-       
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-around;
+       display: flex;
+        justify-content: space-between;
 
         .btn-pads {
             border-radius: 5px;
             color: #FFFF;
-            font-size: 1rem;
+            font-size: 0.7rem;
             font-weight: lighter;
-            padding: 15px;
             line-height: normal;
+            width: 14%;
+            padding: 15px;
+            margin: 5px 0;
 
         }
 

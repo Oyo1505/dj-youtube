@@ -16,6 +16,7 @@ export default class DjApp extends React.Component {
 				video: null,
 				speed: 0,
 				duration:0, 
+				progress: 0,
 				play:null,
 			}],
 			turntableRight: [{
@@ -23,6 +24,7 @@ export default class DjApp extends React.Component {
 				video:null,
 				speed: 0,
 				duration:0, 
+				progress: 0,
 				play:false,
 			}],
 			audioMixer: [{
@@ -40,6 +42,7 @@ export default class DjApp extends React.Component {
 				video: "kCGNWdrN3yw",
 				speed: 1,
 				duration:212, 
+				progress: 0,
 				play:false,
 			}],
 			turntableRight: [{
@@ -47,6 +50,7 @@ export default class DjApp extends React.Component {
 				video:"7IhV2nDhNAI",
 				speed: 1,
 				duration:207, 
+				progress: 0,
 				play:false,
 			}],
 			audioMixer: [{
@@ -123,7 +127,9 @@ export default class DjApp extends React.Component {
 		}	
 		
 	}
-
+	onProgress = (seconds) =>{
+		//this.setState()
+	}
 	render() {
 		
 		return (

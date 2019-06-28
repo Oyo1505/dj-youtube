@@ -15,8 +15,8 @@ import React from 'react';
     	this.props.action(id);
     }
 
-    onClear = () =>{
-
+    onClear = (event) =>{
+    	this.props.delete();
     }
 
 	render() {

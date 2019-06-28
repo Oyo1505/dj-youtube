@@ -1,9 +1,12 @@
 import React from 'react';
 import { Form, FormGroup, FormControl } from 'react-bootstrap';
+import moment from 'moment';
+import momentDurationFormatSetup  from 'moment-duration-format';
 import SpeedRange from './SpeedRange';
 import VideoItems from './VideoItems';
 import Pads from './Pads';
-import vinyl from '../../images/vinyl-panel.png'
+import vinyl from '../../images/vinyl-panel.png';
+
 
 
 class Turntable extends React.Component {
@@ -40,7 +43,11 @@ class Turntable extends React.Component {
         this.props.action(this.props.name, bool);
         this.setState({ toggle: bool });
     }
+    onDelete = () => {
 
+        this.setState({videos: null})
+        
+    }
     render() {
 
         return (
@@ -50,13 +57,20 @@ class Turntable extends React.Component {
 						<FormGroup>
 							<FormControl type="text" onChange={this.handleVideo} defaultValue="" className="input-dj-video-panel" placeholder="Search song on Youtube"/>
 							{this.state.videos  &&
-								<VideoItems videos={this.state.videos} action={this.getVideoMix} />	  
+								<VideoItems delete={this.onDelete} videos={this.state.videos} action={this.getVideoMix} />	  
 							}
   						</FormGroup>
 					</Form>
 				</div>
 					<div className="panel-deck panel-back panel-default panel-turntable">
 						<div className="progressbar-music"> 
+                                <div className="text-duration-left">
+                                  <span> {moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
+                                </div>
+                                <div className="text-duration-right">
+                                    <span>{moment.duration(this.props.song.duration,"seconds").format("h:mm:ss")}</span>
+                                </div>
+                               
 							<input type="range" className="range-song-duration" defaultValue="0"  />							
 						</div>
 						<div className="panel-body-turntable">
