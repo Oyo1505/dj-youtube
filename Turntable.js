@@ -31,7 +31,9 @@ class Turntable extends React.Component {
             .then(response => response.json())
             .then(json => this.setState({ videos: json }));
     }
-
+    getPlayBackRate = (speed) => {
+        this.props.playbackrate(this.props.name, speed)
+    }
     getVideoMix = (video) => {
 
         this.setState({ video });
@@ -70,14 +72,13 @@ class Turntable extends React.Component {
                                 <div className="text-duration-right">
                                     <span>{moment.duration(this.props.song.duration,"seconds").format("h:mm:ss")}</span>
                                 </div>
-                               
 							<input type="range" className="range-song-duration" defaultValue="0"  />							
 						</div>
 						<div className="panel-body-turntable">
 							
 							<img src={vinyl} alt="vinyl-turntable" className={this.state.toggle ? "spin" : " "} />
 
-							<SpeedRange />
+							<SpeedRange playbackrate={this.getPlayBackRate}/>
 							<Pads action={this.onPlay} />
 						</div>	
 					</div>

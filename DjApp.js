@@ -12,9 +12,9 @@ export default class DjApp extends React.Component {
 
 		this.state = {
 			turntableLeft: [{
-				name: null,
-				video: null,
-				speed: 0,
+				name: '',
+				video: '',
+				playbackRate: 0,
 				duration:0, 
 				progress: 0,
 				play:null,
@@ -22,15 +22,10 @@ export default class DjApp extends React.Component {
 			turntableRight: [{
 				name: null,
 				video:null,
-				speed: 0,
+				playbackRate: 0,
 				duration:0, 
 				progress: 0,
 				play:false,
-			}],
-			audioMixer: [{
-				volumeLeft:0,
-				volumeRight: 0,
-				crossfader:0,
 			}]
 		}
 	}
@@ -38,26 +33,20 @@ export default class DjApp extends React.Component {
 	componentWillMount = () => {
 		this.setState({
 			turntableLeft: [{
-				name: "turntableLeft",
-				video: "kCGNWdrN3yw",
-				speed: 1,
+				name: 'turntableLeft',
+				video: 'kCGNWdrN3yw',
+				playbackRate: 1,
 				duration:212, 
 				progress: 0,
 				play:false,
 			}],
 			turntableRight: [{
-				name: "turntableRight",
-				video:"7IhV2nDhNAI",
-				speed: 1,
+				name: 'turntableRight',
+				video:'7IhV2nDhNAI',
+				playbackRate: 1,
 				duration:207, 
 				progress: 0,
 				play:false,
-			}],
-			audioMixer: [{
-				volumeLeft:75,
-				volumeRight: 75,
-				crossfader:50,
-				videoIds: [],
 			}]
 
 		})
@@ -85,7 +74,6 @@ export default class DjApp extends React.Component {
 
 	}
 	getDuration = (turntable, duration) =>{
-		console.log(turntable, duration);
 		//clone each turntable 
 		let turntableLeftClone = this.state.turntableLeft.slice();
 		let turntableRightClone =  this.state.turntableRight.slice();
@@ -127,6 +115,24 @@ export default class DjApp extends React.Component {
 		}	
 		
 	}
+
+	getPlayBackRate = (turntable, speed) => {
+
+		let turntableLeftClone = this.state.turntableLeft.slice();
+		let turntableRightClone =  this.state.turntableRight.slice();
+		
+		if(turntable === turntableRightClone[0].name){
+
+			turntableRightClone[0].playbackRate = speed;
+			this.setState({turntableRight: turntableRightClone })
+
+		}else if(turntable === turntableLeftClone[0].name){
+			
+			turntableLeftClone[0].playbackRate = speed;
+			this.setState({turntableLeft: turntableLeftClone});
+
+		}
+	}
 	onProgress = (seconds) =>{
 		//this.setState()
 	}
@@ -141,11 +147,12 @@ export default class DjApp extends React.Component {
 							 action={this.onPlay} 
 							 song={this.state.turntableLeft[0]} 
 							 name={this.state.turntableLeft[0].name} 
-
+							 playbackrate={this.getPlayBackRate}
 						 />
 						<AudioMixer 
 							left={this.state.turntableLeft[0]} 
-							right={this.state.turntableRight[0]} 
+							right={this.state.turntableRight[0]}
+							audioMixer={this.state.audioMixer}
 							levelVolume={this.state.audioMixer}
 							duration={this.getDuration}
 						/>
@@ -154,6 +161,7 @@ export default class DjApp extends React.Component {
 							action={this.onPlay} 
 							song={this.state.turntableRight[0]} 
 							name={this.state.turntableRight[0].name}
+							playbackrate={this.getPlayBackRate}
 						/>
 					</div>
 				</div>
