@@ -115,7 +115,9 @@ export default class DjApp extends React.Component {
 		}	
 		
 	}
-
+	onProgress = (seconds) => {
+		console.log("djApp", seconds)
+	}
 	getPlayBackRate = (turntable, speed) => {
 
 		let turntableLeftClone = this.state.turntableLeft.slice();
@@ -133,11 +135,25 @@ export default class DjApp extends React.Component {
 
 		}
 	}
-	onProgress = (seconds) =>{
-		//this.setState()
+	onProgress = (turntable, seconds) =>{
+		
+		let turntableLeftClone = this.state.turntableLeft.slice();
+		let turntableRightClone =  this.state.turntableRight.slice();
+
+		if(turntable === turntableRightClone[0].name){
+			
+			turntableRightClone[0].progress = seconds;
+			this.setState({turntableRight: turntableRightClone })
+
+		}else if(turntable === turntableLeftClone[0].name){
+			
+			turntableLeftClone[0].progress = seconds;
+			this.setState({turntableLeft: turntableLeftClone});
+
+		}
+
 	}
 	render() {
-		
 		return (
 			<div id="dj-youtube" >
 				<div className="turntable-container">
@@ -148,6 +164,7 @@ export default class DjApp extends React.Component {
 							 song={this.state.turntableLeft[0]} 
 							 name={this.state.turntableLeft[0].name} 
 							 playbackrate={this.getPlayBackRate}
+							 
 						 />
 						<AudioMixer 
 							left={this.state.turntableLeft[0]} 
@@ -155,6 +172,7 @@ export default class DjApp extends React.Component {
 							audioMixer={this.state.audioMixer}
 							levelVolume={this.state.audioMixer}
 							duration={this.getDuration}
+							onProgress={this.onProgress}
 						/>
 						<Turntable 
 							track={this.getVideoId} 
@@ -162,6 +180,7 @@ export default class DjApp extends React.Component {
 							song={this.state.turntableRight[0]} 
 							name={this.state.turntableRight[0].name}
 							playbackrate={this.getPlayBackRate}
+
 						/>
 					</div>
 				</div>

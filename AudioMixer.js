@@ -13,6 +13,7 @@ class AudioMixer extends React.Component {
 					crossfader:0
 			 		}
 	}
+
 	componentWillMount = () =>{
 		this.setState({
 					volumeLeft:0.75,
@@ -20,6 +21,7 @@ class AudioMixer extends React.Component {
 					crossfader:50
 		})
 	}
+
 	getVolumes = (level, turntable) => {
 		
 		if(turntable === 'volumeLeft'){
@@ -27,14 +29,19 @@ class AudioMixer extends React.Component {
 		}else if( turntable === 'volumeRight'){
 			this.setState({volumeRight: level})
 		}
-		
 	}
+
+	getProgress =(turntable, playedSeconds) => {
+
+			this.props.onProgress(turntable, playedSeconds);
+	}
+
 	getDuration = (turntable, duration) => {
 		this.props.duration(turntable, duration)
 	}
 
 	render() {
-		console.log(this.props.right.playbackRate)
+		
 		return (
 			<div className="module-dj audio-mixer-panel"> 
 				
@@ -42,8 +49,8 @@ class AudioMixer extends React.Component {
 					<VolumeController  volume={this.getVolumes}/>
 				</div>
 				<div className=" panel-default panel-video-audio-mixer">
-					<VideoMiddle turntable={this.props.left} duration={this.getDuration} volume={this.state.volumeLeft} />
-					<VideoMiddle turntable={this.props.right} duration={this.getDuration} volume={this.state.volumeRight} />
+					<VideoMiddle turntable={this.props.left} duration={this.getDuration} volume={this.state.volumeLeft} progress={this.getProgress}/>
+					<VideoMiddle turntable={this.props.right} duration={this.getDuration} volume={this.state.volumeRight} progress={this.getProgress} />
 				</div>
 				<div className="panel-back panel-default social-media-panel">
 					<button className="button-social-media-panel" ><i className="icon icon-like-white"></i> Like</button> 
