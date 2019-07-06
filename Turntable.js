@@ -45,13 +45,13 @@ class Turntable extends React.Component {
         this.props.action(this.props.name, bool);
         this.setState({ toggle: bool });
     }
-    onDelete = () => {
+    onDelete = () => { 
 
         this.setState({videos: null})
         
     }
     render() {
-
+        console.log(typeof this.props.song.progress)
         return (
             <div className="module-dj">
 				<div className="input-dj-video">
@@ -67,7 +67,18 @@ class Turntable extends React.Component {
 					<div className="panel-deck panel-back panel-default panel-turntable">
 						<div className="progressbar-music"> 
                                 <div className="text-duration-left">
-                                  <span> {moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
+                                {this.props.song.progress <= 9 &&
+                                     <span> 00:0{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
+                                }
+                                {this.props.song.progress > 9 && this.props.song.progress <= 59 &&
+                                     <span> 00:{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
+
+                                }
+                                {this.props.song.progress >59 &&
+                                     <span>{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
+
+                                }
+                            
                                 </div>
                                 <div className="text-duration-right">
                                     <span>{moment.duration(this.props.song.duration,"seconds").format("h:mm:ss")}</span>
@@ -78,7 +89,7 @@ class Turntable extends React.Component {
 							
 							<img src={vinyl} alt="vinyl-turntable" className={this.state.toggle ? "spin" : " "} />
 
-							<SpeedRange playbackrate={this.getPlayBackRate}/>
+							<SpeedRange playbackrate={this.getPlayBackRate} speed={this.props.song.playbackRate} />
 							<Pads action={this.onPlay} />
 						</div>	
 					</div>
