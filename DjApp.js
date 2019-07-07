@@ -17,7 +17,8 @@ export default class DjApp extends React.Component {
 				playbackRate: 0,
 				duration:0, 
 				progress: 0,
-				play:null,
+				play:false,
+				pads:[],
 			}],
 			turntableRight: [{
 				name: null,
@@ -26,6 +27,7 @@ export default class DjApp extends React.Component {
 				duration:0, 
 				progress: 0,
 				play:false,
+				pads:[],
 			}]
 		}
 	}
@@ -39,6 +41,7 @@ export default class DjApp extends React.Component {
 				duration:212, 
 				progress: 0,
 				play:false,
+				pads:["q", "s", "d", "f"],
 			}],
 			turntableRight: [{
 				name: 'turntableRight',
@@ -47,6 +50,7 @@ export default class DjApp extends React.Component {
 				duration:207, 
 				progress: 0,
 				play:false,
+				pads:["j", "k", "l", "m"],
 			}]
 
 		})
@@ -153,6 +157,24 @@ export default class DjApp extends React.Component {
 		}
 
 	}
+
+	changeProgressSong = (turntable, duration) => {
+		let turntableLeftClone = this.state.turntableLeft.slice();
+		let turntableRightClone =  this.state.turntableRight.slice();
+
+		if(turntable === turntableRightClone[0].name){
+			
+			turntableRightClone[0].progress = duration;
+			this.setState({turntableRight: turntableRightClone })
+
+		}else if(turntable === turntableLeftClone[0].name){
+			
+			turntableLeftClone[0].progress = duration;
+			this.setState({turntableLeft: turntableLeftClone});
+
+		}
+	}
+
 	render() {
 		return (
 			<div id="dj-youtube" >
@@ -164,7 +186,7 @@ export default class DjApp extends React.Component {
 							 song={this.state.turntableLeft[0]} 
 							 name={this.state.turntableLeft[0].name} 
 							 playbackrate={this.getPlayBackRate}
-							 
+							 changeProgressSong={this.changeProgressSong}
 						 />
 						<AudioMixer 
 							left={this.state.turntableLeft[0]} 
@@ -180,7 +202,7 @@ export default class DjApp extends React.Component {
 							song={this.state.turntableRight[0]} 
 							name={this.state.turntableRight[0].name}
 							playbackrate={this.getPlayBackRate}
-
+							changeProgressSong={this.changeProgressSong}
 						/>
 					</div>
 				</div>

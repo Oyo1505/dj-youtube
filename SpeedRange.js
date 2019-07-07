@@ -16,7 +16,7 @@ class SpeedRange extends React.Component {
 		return (
 			<div className="range-speed-containter">
 				<div className="slider-vertical">
-					<input className="range-speed"  onChange={this.handleSpeed} type="range" defaultValue="1" step='0.25' min="0.25"  max="2" /><p className="speed-p">Speed </p>
+					<input className="range-speed"  onChange={this.handleSpeed} type="range" defaultValue="1" step='0.25' min="0.25"  max="2" /><p className="speed-p">Speed {this.props.speed} X </p>
 				</div>
 			</div>
 		);

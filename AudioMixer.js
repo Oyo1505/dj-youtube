@@ -33,7 +33,7 @@ class AudioMixer extends React.Component {
 
 	getProgress =(turntable, playedSeconds) => {
 
-			this.props.onProgress(turntable, playedSeconds);
+		this.props.onProgress(turntable, playedSeconds);
 	}
 
 	getDuration = (turntable, duration) => {

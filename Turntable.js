@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, FormGroup, FormControl } from 'react-bootstrap';
 import moment from 'moment';
-import momentDurationFormatSetup  from 'moment-duration-format';
+import momentDurationFormatSetup from 'moment-duration-format';
 import SpeedRange from './SpeedRange';
 import VideoItems from './VideoItems';
 import Pads from './Pads';
@@ -11,7 +11,7 @@ import vinyl from '../../images/vinyl-panel.png';
 
 class Turntable extends React.Component {
     /*static propTypes = {
-    	name: React.PropTypes.string,
+        name: React.PropTypes.string,
     };*/
 
     constructor(props) {
@@ -45,27 +45,32 @@ class Turntable extends React.Component {
         this.props.action(this.props.name, bool);
         this.setState({ toggle: bool });
     }
-    onDelete = () => { 
+    onDelete = () => {
 
-        this.setState({videos: null})
-        
+        this.setState({ videos: null });
+    }
+
+    handleDuration = (event) => {
+        let newValueSeconds = parseInt(event.target.value);
+        let turntable = this.props.name;
+        this.props.changeProgressSong(this.props.name, newValueSeconds)
     }
     render() {
-        console.log(typeof this.props.song.progress)
+       
         return (
             <div className="module-dj">
-				<div className="input-dj-video">
-					<Form>
-						<FormGroup>
-							<FormControl type="text" onChange={this.handleVideo} defaultValue="" className="input-dj-video-panel" placeholder="Search song on Youtube"/>
-							{this.state.videos  &&
-								<VideoItems delete={this.onDelete} videos={this.state.videos} action={this.getVideoMix} />	  
-							}
-  						</FormGroup>
-					</Form>
-				</div>
-					<div className="panel-deck panel-back panel-default panel-turntable">
-						<div className="progressbar-music"> 
+                <div className="input-dj-video">
+                    <Form>
+                        <FormGroup>
+                            <FormControl type="text" onChange={this.handleVideo} defaultValue="" className="input-dj-video-panel" placeholder="Search song on Youtube"/>
+                            {this.state.videos  &&
+                                <VideoItems delete={this.onDelete} videos={this.state.videos} action={this.getVideoMix} />    
+                            }
+                        </FormGroup>
+                    </Form>
+                </div>
+                    <div className="panel-deck panel-back panel-default panel-turntable">
+                        <div className="progressbar-music"> 
                                 <div className="text-duration-left">
                                 {this.props.song.progress <= 9 &&
                                      <span> 00:0{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
@@ -74,7 +79,7 @@ class Turntable extends React.Component {
                                      <span> 00:{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
 
                                 }
-                                {this.props.song.progress >59 &&
+                                {this.props.song.progress > 59 &&
                                      <span>{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
 
                                 }
@@ -83,18 +88,18 @@ class Turntable extends React.Component {
                                 <div className="text-duration-right">
                                     <span>{moment.duration(this.props.song.duration,"seconds").format("h:mm:ss")}</span>
                                 </div>
-							<input type="range" className="range-song-duration" defaultValue="0"  />							
-						</div>
-						<div className="panel-body-turntable">
-							
-							<img src={vinyl} alt="vinyl-turntable" className={this.state.toggle ? "spin" : " "} />
+                            <input type="range" className="range-song-duration"  value={this.props.song.progress} max={this.props.song.duration} onClick={this.handleDuration}  />                            
+                        </div>
+                        <div className="panel-body-turntable">
+                            
+                            <img src={vinyl} alt="vinyl-turntable" className={this.state.toggle ? "spin" : " "} />
 
-							<SpeedRange playbackrate={this.getPlayBackRate} speed={this.props.song.playbackRate} />
-							<Pads action={this.onPlay} />
-						</div>	
-					</div>
+                            <SpeedRange playbackrate={this.getPlayBackRate} speed={this.props.song.playbackRate} />
+                            <Pads action={this.onPlay} pads={this.props.song.pads} />
+                        </div>  
+                    </div>
 
-			</div>
+            </div>
         );
     }
 }
