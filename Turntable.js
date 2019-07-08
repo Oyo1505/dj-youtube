@@ -19,7 +19,8 @@ class Turntable extends React.Component {
         this.state = {
             videos: null,
             video: null,
-            toggle: false
+            toggle: false,
+            seeking:false
         }
     }
 
@@ -50,11 +51,24 @@ class Turntable extends React.Component {
         this.setState({ videos: null });
     }
 
-    handleDuration = (event) => {
+    onSeekMouseDown = event => {
+        this.props.seek(this.props.name, true);
+    }
+    onSeekChange = (event, bool) => {
+        
         let newValueSeconds = parseInt(event.target.value);
         let turntable = this.props.name;
-        this.props.changeProgressSong(this.props.name, newValueSeconds)
+         //can play
+        this.props.action(turntable, true);
+        this.setState({ toggle:true});
+        console.log(this.state.toggle, this.props.name)
+        this.props.changeProgressSong(this.props.name, newValueSeconds);
+    
     }
+    onSeekMouseUp = event => {
+        this.props.seek(this.props.name, false);
+    }
+
     render() {
        
         return (
@@ -88,14 +102,22 @@ class Turntable extends React.Component {
                                 <div className="text-duration-right">
                                     <span>{moment.duration(this.props.song.duration,"seconds").format("h:mm:ss")}</span>
                                 </div>
-                            <input type="range" className="range-song-duration"  value={this.props.song.progress} max={this.props.song.duration} onClick={this.handleDuration}  />                            
+                            <input
+                             type="range" 
+                             className="range-song-duration" 
+                             defaultValue="0" 
+                             max={this.props.song.duration} 
+                             onMouseDown={this.onSeekMouseDown}
+                             onChange={this.onSeekChange}
+                             onMouseUp={this.onSeekMouseUp} 
+                             />                            
                         </div>
                         <div className="panel-body-turntable">
                             
                             <img src={vinyl} alt="vinyl-turntable" className={this.state.toggle ? "spin" : " "} />
 
                             <SpeedRange playbackrate={this.getPlayBackRate} speed={this.props.song.playbackRate} />
-                            <Pads action={this.onPlay} pads={this.props.song.pads} />
+                            <Pads action={this.onPlay} pads={this.props.song.pads}  canPlay={this.props.song.play}  />
                         </div>  
                     </div>
 

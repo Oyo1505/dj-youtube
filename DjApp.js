@@ -18,6 +18,7 @@ export default class DjApp extends React.Component {
 				duration:0, 
 				progress: 0,
 				play:false,
+				seeking:false,
 				pads:[],
 			}],
 			turntableRight: [{
@@ -27,6 +28,7 @@ export default class DjApp extends React.Component {
 				duration:0, 
 				progress: 0,
 				play:false,
+				seeking:false,
 				pads:[],
 			}]
 		}
@@ -41,7 +43,8 @@ export default class DjApp extends React.Component {
 				duration:212, 
 				progress: 0,
 				play:false,
-				pads:["q", "s", "d", "f"],
+				seeking:false,
+				pads:["x","t","g","q", "s", "d", "f"],
 			}],
 			turntableRight: [{
 				name: 'turntableRight',
@@ -50,7 +53,8 @@ export default class DjApp extends React.Component {
 				duration:207, 
 				progress: 0,
 				play:false,
-				pads:["j", "k", "l", "m"],
+				seeking:false,
+				pads:["b","y","h","j", "k", "l", "m"],
 			}]
 
 		})
@@ -130,7 +134,7 @@ export default class DjApp extends React.Component {
 		if(turntable === turntableRightClone[0].name){
 
 			turntableRightClone[0].playbackRate = speed;
-			this.setState({turntableRight: turntableRightClone })
+			this.setState({turntableRight: turntableRightClone });
 
 		}else if(turntable === turntableLeftClone[0].name){
 			
@@ -147,7 +151,7 @@ export default class DjApp extends React.Component {
 		if(turntable === turntableRightClone[0].name){
 			
 			turntableRightClone[0].progress = seconds;
-			this.setState({turntableRight: turntableRightClone })
+			this.setState({turntableRight: turntableRightClone });
 
 		}else if(turntable === turntableLeftClone[0].name){
 			
@@ -165,11 +169,28 @@ export default class DjApp extends React.Component {
 		if(turntable === turntableRightClone[0].name){
 			
 			turntableRightClone[0].progress = duration;
-			this.setState({turntableRight: turntableRightClone })
+			this.setState({turntableRight: turntableRightClone });
 
 		}else if(turntable === turntableLeftClone[0].name){
 			
 			turntableLeftClone[0].progress = duration;
+			this.setState({turntableLeft: turntableLeftClone});
+
+		}
+	}
+
+	onSeek = (turntable, seek) => {
+		let turntableLeftClone = this.state.turntableLeft.slice();
+		let turntableRightClone =  this.state.turntableRight.slice();
+
+		if(turntable === turntableRightClone[0].name){
+			
+			turntableRightClone[0].seeking = seek;
+			this.setState({turntableRight:turntableRightClone });
+
+		}else if(turntable === turntableLeftClone[0].name){
+			
+			turntableLeftClone[0].seeking = seek;
 			this.setState({turntableLeft: turntableLeftClone});
 
 		}
@@ -187,6 +208,7 @@ export default class DjApp extends React.Component {
 							 name={this.state.turntableLeft[0].name} 
 							 playbackrate={this.getPlayBackRate}
 							 changeProgressSong={this.changeProgressSong}
+							 seek={this.onSeek}
 						 />
 						<AudioMixer 
 							left={this.state.turntableLeft[0]} 
@@ -203,6 +225,7 @@ export default class DjApp extends React.Component {
 							name={this.state.turntableRight[0].name}
 							playbackrate={this.getPlayBackRate}
 							changeProgressSong={this.changeProgressSong}
+							seek={this.onSeek}
 						/>
 					</div>
 				</div>
