@@ -117,7 +117,7 @@ class Turntable extends React.Component {
                             <img src={vinyl} alt="vinyl-turntable" className={this.state.toggle ? "spin" : " "} />
 
                             <SpeedRange playbackrate={this.getPlayBackRate} speed={this.props.song.playbackRate} />
-                            <Pads action={this.onPlay} pads={this.props.song.pads}  canPlay={this.props.song.play}  />
+                           <Pads name={this.props.song.name} pads={this.props.song.pads} action={this.onPlay} canPlay={this.props.song.play} keyDown={this.props.keydown}/>
                         </div>  
                     </div>
 

@@ -1,8 +1,13 @@
 import React, {Fragment} from 'react';
 import Turntable from './Turntable';
 import AudioMixer from './AudioMixer';
+import KeyboardEventHandler from 'react-keyboard-event-handler';
+//import keydown from 'react-keydown';
 
-export default class DjApp extends React.Component {
+//@keydown
+
+
+ class DjApp extends React.Component {
 	/*static propTypes = {
 		name: React.PropTypes.string,
 	};*/
@@ -30,11 +35,27 @@ export default class DjApp extends React.Component {
 				play:false,
 				seeking:false,
 				pads:[],
-			}]
+			}],
+			key: null,
+		
+			isFetching: false,
 		}
 	}
+	/*shouldComponentUpdate  = ( nextProps, nextState ) => {
+		 console.log('update?', nextState, nextProps);
+   		 const { keydown: { event } } = nextProps;
+   		 if ( nextProps !== nextState) {
 
+     		 this.setState( { key: event.key } );
+     		return true;
+   		 }
+   		 return false;
+ 	 }*/
+ 	 componentDidMount = () =>{
+ 	 	 console.log('did mount');
+ 	 }
 	componentWillMount = () => {
+		console.log('will mount');
 		this.setState({
 			turntableLeft: [{
 				name: 'turntableLeft',
@@ -55,8 +76,8 @@ export default class DjApp extends React.Component {
 				play:false,
 				seeking:false,
 				pads:["b","y","h","j", "k", "l", "m"],
-			}]
-
+			}],
+			key:null
 		})
 	}
 
@@ -123,9 +144,7 @@ export default class DjApp extends React.Component {
 		}	
 		
 	}
-	onProgress = (seconds) => {
-		console.log("djApp", seconds)
-	}
+	
 	getPlayBackRate = (turntable, speed) => {
 
 		let turntableLeftClone = this.state.turntableLeft.slice();
@@ -197,39 +216,55 @@ export default class DjApp extends React.Component {
 	}
 
 	render() {
+		const {isFetching} = this.state.isFetching;
+		console.log(this.state.turntableLeft.play)
 		return (
-			<div id="dj-youtube" >
-				<div className="turntable-container">
-					<div className="container-dj-app"> 
-						<Turntable 
-							 track={this.getVideoId}
-							 action={this.onPlay} 
-							 song={this.state.turntableLeft[0]} 
-							 name={this.state.turntableLeft[0].name} 
-							 playbackrate={this.getPlayBackRate}
-							 changeProgressSong={this.changeProgressSong}
-							 seek={this.onSeek}
-						 />
-						<AudioMixer 
-							left={this.state.turntableLeft[0]} 
-							right={this.state.turntableRight[0]}
-							audioMixer={this.state.audioMixer}
-							levelVolume={this.state.audioMixer}
-							duration={this.getDuration}
-							onProgress={this.onProgress}
-						/>
-						<Turntable 
-							track={this.getVideoId} 
-							action={this.onPlay} 
-							song={this.state.turntableRight[0]} 
-							name={this.state.turntableRight[0].name}
-							playbackrate={this.getPlayBackRate}
-							changeProgressSong={this.changeProgressSong}
-							seek={this.onSeek}
-						/>
+			<div>
+
+			{ isFetching ? <p>Loading...</p> : (
+				
+					
+				<div id="dj-youtube">
+					<div className="turntable-container">
+						<div className="container-dj-app"> 
+							<Turntable 
+								 track={this.getVideoId}
+								 action={this.onPlay} 
+								 song={this.state.turntableLeft[0]} 
+								 name={this.state.turntableLeft[0].name} 
+								 playbackrate={this.getPlayBackRate}
+								 changeProgressSong={this.changeProgressSong}
+								 seek={this.onSeek}
+								 keydown={this.state.key}
+								 
+							 />
+							<AudioMixer 
+								left={this.state.turntableLeft[0]} 
+								right={this.state.turntableRight[0]}
+								audioMixer={this.state.audioMixer}
+								levelVolume={this.state.audioMixer}
+								duration={this.getDuration}
+								onProgress={this.onProgress}
+							/>
+							<Turntable 
+								track={this.getVideoId} 
+								action={this.onPlay} 
+								song={this.state.turntableRight[0]} 
+								name={this.state.turntableRight[0].name}
+								playbackrate={this.getPlayBackRate}
+								changeProgressSong={this.changeProgressSong}
+								seek={this.onSeek}
+								keydown={this.state.key}
+								
+							/>
+						</div>
 					</div>
 				</div>
+		
+				)	
+			}
 			</div>	
 		);
 	}
 }
+export default DjApp;
