@@ -31,7 +31,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 	render() {
 		const touchesPad = this.props.pads;
-	console.log(this.state.toggle, "render", this.props.name)
+
 		return (
 			<div className="pads">
 							<KeyboardEventHandler

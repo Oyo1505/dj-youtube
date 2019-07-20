@@ -41,18 +41,9 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 			isFetching: false,
 		}
 	}
-	/*shouldComponentUpdate  = ( nextProps, nextState ) => {
-		 console.log('update?', nextState, nextProps);
-   		 const { keydown: { event } } = nextProps;
-   		 if ( nextProps !== nextState) {
 
-     		 this.setState( { key: event.key } );
-     		return true;
-   		 }
-   		 return false;
- 	 }*/
  	 componentDidMount = () =>{
- 	 	 console.log('did mount');
+ 	 	 //console.log('did mount');
  	 }
 	componentWillMount = () => {
 		console.log('will mount');
@@ -217,7 +208,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 	render() {
 		const {isFetching} = this.state.isFetching;
-		console.log(this.state.turntableLeft.play)
+		//console.log(this.state.turntableLeft.play)
 		return (
 			<div>
 

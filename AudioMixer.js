@@ -40,17 +40,40 @@ class AudioMixer extends React.Component {
 		this.props.duration(turntable, duration)
 	}
 
+
+
+	handleValueCrossfader = (value) =>{
+
+		if(value < 50){
+			let volumeRight = value / 50 
+			this.setState({volumeRight: volumeRight});
+		}else if( value > 50){
+			let volumeLeft = 50 / value - 0.5 ;
+			this.setState({volumeLeft: volumeLeft});
+		}
+	}
 	render() {
 		
 		return (
 			<div className="module-dj audio-mixer-panel"> 
 				
 				<div className="panel-back panel-default panel-sound-control">
-					<VolumeController  volume={this.getVolumes}/>
+					<VolumeController  volume={this.getVolumes} crossfader={this.handleValueCrossfader}/>
 				</div>
 				<div className=" panel-default panel-video-audio-mixer">
-					<VideoMiddle turntable={this.props.left} duration={this.getDuration} volume={this.state.volumeLeft} progress={this.getProgress}/>
-					<VideoMiddle turntable={this.props.right} duration={this.getDuration} volume={this.state.volumeRight} progress={this.getProgress} />
+					<VideoMiddle 
+					turntable={this.props.left} 
+					duration={this.getDuration} 
+					volume={this.state.volumeLeft} 
+					progress={this.getProgress}
+					/>
+
+					<VideoMiddle 
+					turntable={this.props.right} 
+					duration={this.getDuration} 
+					volume={this.state.volumeRight} 
+					progress={this.getProgress} 
+					/>
 				</div>
 				<div className="panel-back panel-default social-media-panel">
 					<button className="button-social-media-panel" ><i className="icon icon-like-white"></i> Like</button> 
