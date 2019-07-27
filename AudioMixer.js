@@ -1,6 +1,7 @@
 import React from 'react';
 import VolumeController from './VolumeController';
 import VideoMiddle from './VideoMiddle';
+import  rewind from "../../sounds/kamelott/rewind.mp3";
 
 class AudioMixer extends React.Component {
 
@@ -54,7 +55,16 @@ class AudioMixer extends React.Component {
             this.setState({ volumeLeft: volumeLeft });
         }
     }
-    
+    handlePullpUp = () => {
+        var rewindTurntables = this.refs.rewind;
+        rewindTurntables.currentTime = 0;
+        rewindTurntables.play();
+    }
+
+    canPlay = () => {
+        this.props.reset();
+    }
+
     render() {
 
         return (
@@ -70,6 +80,7 @@ class AudioMixer extends React.Component {
 					volume={this.state.volumeLeft} 
 					progress={this.getProgress}
 					seek={this.getSeek}
+                    seeking={this.props.seeking}
 					/>
 
 					<VideoMiddle 
@@ -78,14 +89,15 @@ class AudioMixer extends React.Component {
 					volume={this.state.volumeRight} 
 					progress={this.getProgress} 
 					seek={this.getSeek}
+                    seeking={this.props.seeking}
 					/>
 				</div>
 				<div className="panel-back panel-default social-media-panel">
 					<button className="button-social-media-panel" ><i className="icon icon-like-white"></i> Like</button> 
 					<button className="button-social-media-panel"><i className="icon icon-share"></i>Share</button>
-					<button className="button-social-media-panel"><i className="icon icon-pullup"></i>Pull Up</button>
+					<button className="button-social-media-panel"onClick={this.handlePullpUp}><audio preload="none" ref="rewind"  onEnded={this.canPlay}  src={rewind} ></audio><i className="icon icon-pullup"></i>Pull Up</button>
 					<button className="button-social-media-panel last"><i className="icon icon-keyboard"></i>ShortCuts</button>
-
+                    <button className="button-social-media-panel last"><i className="icon icon-keyboard"></i>Dub Alarms</button>
 				</div>
 			</div>
         );

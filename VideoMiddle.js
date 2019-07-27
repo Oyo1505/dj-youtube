@@ -21,12 +21,13 @@ export default class VideoMiddle extends React.Component {
     onProgress = state => {
 
         // We only want to update time slider if we are not currently seeking
-        if (!this.props.turntable.seeking) {
+        if (!this.props.seeking) {
 
             let playedSeconds = parseInt(state.playedSeconds)
             this.setState({ playedSeconds: playedSeconds });
             this.props.progress(this.props.turntable.name, playedSeconds);
-        } else if (this.props.turntable.seeking) {
+
+        } else if (this.props.seeking) {
 
             let playedSeconds = parseInt(state.playedSeconds)
             this.setState({ playedSeconds: playedSeconds });
@@ -46,7 +47,8 @@ export default class VideoMiddle extends React.Component {
     }
     render() {
 
-        if (this.props.turntable.seeking) {
+        if (this.props.seeking) {
+             console.log(this.props.turntable.progress,this.props.turntable.name )
             this.player.seekTo(this.props.turntable.progress);
 
         }

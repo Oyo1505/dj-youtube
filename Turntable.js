@@ -99,7 +99,7 @@ class Turntable extends React.Component {
 
 
     render() {
-       console.log(this.props.song.progress,"turn")
+       //console.log(this.props.song.progress,"turn")
      /*  const positionX = this.props.song.progress;
         let progressWidth = this.state.widthTarget;
         let newPositionOnTheBar = positionX / progressWidth * 100;*/
