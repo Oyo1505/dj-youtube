@@ -17,14 +17,14 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 	}
 
 	onClicktoggle = (event) => {
-		console.log(event)
+		//console.log(event)
 		this.setState({toggle: !this.state.toggle})
 		
 		this.props.action(!this.state.toggle)
 	}
 	back = (event) => {
 		
-		let fiveSeconds = -5;
+		
 
 		//this.props.backfoward(fiveSeconds);
 	}

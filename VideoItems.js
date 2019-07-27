@@ -12,7 +12,8 @@ class VideoItems extends React.Component {
     addToPlaylist = (event) => {
 
         let id = event.target.dataset.id;
-        this.props.action(id);
+        let title = event.target.dataset.name;
+        this.props.action(id, title);
         this.props.delete()
     }
 
@@ -28,7 +29,7 @@ class VideoItems extends React.Component {
             videoItem = videos.map(video => {
 
                 let id = video.id.videoId
-                return <li key={id} className="video-item-dj"><div className="thumbnail-video-item"><img src={video.snippet.thumbnails.default.url}/></div><div> <span>{this.replaceString(video.snippet.title)}</span> </div><div className="btn-add-playlist"  data-id={id} onClick={this.addToPlaylist} >Add to Playlist</div> </li>
+                return <li key={id} className="video-item-dj"><div className="thumbnail-video-item"><img src={video.snippet.thumbnails.default.url}/></div><div> <span>{this.replaceString(video.snippet.title)}</span> </div><div className="btn-add-playlist" data-name={video.snippet.title} data-id={id} onClick={this.addToPlaylist} >Add to Playlist</div> </li>
             })
         }
         return (

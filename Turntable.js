@@ -16,14 +16,29 @@ class Turntable extends React.Component {
 
     constructor(props) {
         super(props);
+        //this.progressBar = React.createRef();
         this.state = {
             videos: null,
             video: null,
+            title: '',
             toggle: false,
+            layerX:0,
+            widthTarget:0,
             seeking:false
         }
     }
+    componentDidMount =()=>{
+       
+        this.setState({widthTarget:this.refs.progressBar.clientWidth})
+    }
+    shouldComponentUpdate = (nextProps, nextState)=>{
 
+       
+        if(nextProps !== nextState){
+
+            return true;
+        }
+    }
     handleVideo = async (event) => {
 
         let value = event.target.value.replace(/\s/g, "+");
@@ -32,12 +47,13 @@ class Turntable extends React.Component {
             .then(response => response.json())
             .then(json => this.setState({ videos: json }));
     }
+
     getPlayBackRate = (speed) => {
         this.props.playbackrate(this.props.name, speed)
     }
-    getVideoMix = (video) => {
+    getVideoMix = (video, title) => {
 
-        this.setState({ video });
+        this.setState({ video, title });
         this.props.track(this.props.name, video);
     }
 
@@ -45,6 +61,7 @@ class Turntable extends React.Component {
 
         this.props.action(this.props.name, bool);
         this.setState({ toggle: bool });
+        
     }
     onDelete = () => {
 
@@ -52,24 +69,40 @@ class Turntable extends React.Component {
     }
 
     onSeekMouseDown = event => {
-        this.props.seek(this.props.name, true);
+        // new position on the progress
+        event.persist()
+        let layerX = event.nativeEvent.layerX;
+        let progressWidth = event.target.clientWidth;
+        let newPositionOnTheBar = parseInt(event.nativeEvent.layerX / progressWidth * 100);
+        
+        this.setState({layerX : newPositionOnTheBar})
     }
     onSeekChange = (event, bool) => {
         
-        let newValueSeconds = parseInt(event.target.value);
+        let percent = this.state.layerX;
+        let durationSong = this.props.song.duration;
+
+        //translate  in px of the progress bar the percent when the transition end 
+        let newValueSeconds = percent / 100 * durationSong;
+
+        //turntable
         let turntable = this.props.name;
+
          //can play
-        this.props.action(turntable, true);
-        this.setState({ toggle:true});
-        console.log(this.state.toggle, this.props.name)
+         this.props.seek(this.props.name, true);
         this.props.changeProgressSong(this.props.name, newValueSeconds);
-    
-    }
-    onSeekMouseUp = event => {
-        this.props.seek(this.props.name, false);
+        this.setState({ toggle:true});
+
+        this.props.action(turntable, true);
     }
 
+
+
     render() {
+       console.log(this.props.song.progress,"turn")
+     /*  const positionX = this.props.song.progress;
+        let progressWidth = this.state.widthTarget;
+        let newPositionOnTheBar = positionX / progressWidth * 100;*/
        
         return (
             <div className="module-dj">
@@ -84,36 +117,45 @@ class Turntable extends React.Component {
                     </Form>
                 </div>
                     <div className="panel-deck panel-back panel-default panel-turntable">
-                        <div className="progressbar-music"> 
-                                <div className="text-duration-left">
-                                {this.props.song.progress <= 9 &&
-                                     <span> 00:0{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
-                                }
-                                {this.props.song.progress > 9 && this.props.song.progress <= 59 &&
-                                     <span> 00:{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
+                        <div 
+                        ref="progressBar"
+                        className="progressbar-music"
+                        onClick={this.onSeekMouseDown}
+                        data-max={this.props.song.duration} 
+                        
+                        > 
 
-                                }
-                                {this.props.song.progress > 59 &&
-                                     <span>{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
+                             <div className="range-song-duration"  onTransitionEnd={this.onSeekChange} style={{width: `${this.state.layerX}%`}}> </div> 
+                           
+                                <div className="marker"><p></p></div>
+                                <div className="marker"><p></p></div>
+                                <div className="marker"><p></p></div> 
+                                <div className="marker"><p></p></div> 
+                                <div className="timers">
+                                     <div className="text-duration-left">
+                                    {this.props.song.progress <= 9 &&
+                                         <span> 00:0{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
+                                    }
+                                    {this.props.song.progress > 9 && this.props.song.progress <= 59 &&
+                                         <span> 00:{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
 
-                                }
-                            
+                                    }
+                                    {this.props.song.progress > 59 &&
+                                         <span>{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
+
+                                    }
+
+                                    </div>
+                                     <div className="text-duration-right">
+                                        <span>{moment.duration(this.props.song.duration,"seconds").format("h:mm:ss")}</span>
+                                    </div>
                                 </div>
-                                <div className="text-duration-right">
-                                    <span>{moment.duration(this.props.song.duration,"seconds").format("h:mm:ss")}</span>
-                                </div>
-                            <input
-                             type="range" 
-                             className="range-song-duration" 
-                             defaultValue="0" 
-                             max={this.props.song.duration} 
-                             onMouseDown={this.onSeekMouseDown}
-                             onChange={this.onSeekChange}
-                             onMouseUp={this.onSeekMouseUp} 
-                             />                            
+                         
+                          
+
                         </div>
                         <div className="panel-body-turntable">
-                            
+                            <p className="title-name-song">{this.state.title}</p>
                             <img src={vinyl} alt="vinyl-turntable" className={this.state.toggle ? "spin" : " "} />
 
                             <SpeedRange playbackrate={this.getPlayBackRate} speed={this.props.song.playbackRate} />

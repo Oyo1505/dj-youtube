@@ -46,7 +46,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
  	 	 //console.log('did mount');
  	 }
 	componentWillMount = () => {
-		console.log('will mount');
+
 		this.setState({
 			turntableLeft: [{
 				name: 'turntableLeft',
@@ -76,18 +76,19 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 		//clone each turntable 
 		let turntableLeftClone = this.state.turntableLeft.slice();
 		let turntableRightClone =  this.state.turntableRight.slice();
-
+	
 		//check the name of the turntable and change the play value
 		if(turntable === turntableLeftClone[0].name){
 
 			turntableLeftClone[0].video = id;
-
+			
 			this.setState({turntableLeft: turntableLeftClone});
 
 
 		}else if(turntable === turntableRightClone[0].name){
 
 			turntableRightClone[0].video = id;
+			
 			this.setState({turntableRight: turntableRightClone});
 
 		}	
@@ -121,7 +122,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 		//check the name of the turntable and change the play value
 		if(turntable === turntableLeftClone[0].name){
-
+			
 			turntableLeftClone[0].play = play;
 
 			this.setState({turntableLeft: turntableLeftClone});
@@ -157,7 +158,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 		
 		let turntableLeftClone = this.state.turntableLeft.slice();
 		let turntableRightClone =  this.state.turntableRight.slice();
-
+	
 		if(turntable === turntableRightClone[0].name){
 			
 			turntableRightClone[0].progress = seconds;
@@ -179,20 +180,24 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 		if(turntable === turntableRightClone[0].name){
 			
 			turntableRightClone[0].progress = duration;
+		
 			this.setState({turntableRight: turntableRightClone });
 
 		}else if(turntable === turntableLeftClone[0].name){
 			
 			turntableLeftClone[0].progress = duration;
+		
 			this.setState({turntableLeft: turntableLeftClone});
 
 		}
 	}
 
 	onSeek = (turntable, seek) => {
+		//clone turtables
 		let turntableLeftClone = this.state.turntableLeft.slice();
 		let turntableRightClone =  this.state.turntableRight.slice();
-
+		
+		//check the name of the turntable and change the proprety of seek
 		if(turntable === turntableRightClone[0].name){
 			
 			turntableRightClone[0].seeking = seek;
@@ -208,7 +213,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 	render() {
 		const {isFetching} = this.state.isFetching;
-		//console.log(this.state.turntableLeft.play)
+		
 		return (
 			<div>
 
@@ -236,6 +241,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 								levelVolume={this.state.audioMixer}
 								duration={this.getDuration}
 								onProgress={this.onProgress}
+								onSeek={this.onSeek}
 							/>
 							<Turntable 
 								track={this.getVideoId} 
