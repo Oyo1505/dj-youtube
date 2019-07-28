@@ -53,6 +53,7 @@ class DjApp extends React.Component {
                 video: 'kCGNWdrN3yw',
                 playbackRate: 1,
                 duration: 212,
+                titleVideo:'',
                 progress: 0,
                 play: false,
                 pads: ["x", "t", "g", "q", "s", "d", "f"],
@@ -62,6 +63,7 @@ class DjApp extends React.Component {
                 video: '7IhV2nDhNAI',
                 playbackRate: 1,
                 duration: 207,
+                titleVideo:'',
                 progress: 0,
                 play: false,
                 pads: ["b", "y", "h", "j", "k", "l", "m"],
@@ -207,22 +209,22 @@ class DjApp extends React.Component {
         }
     }
 
-    resetTurntableProgress = () => {
+    resetTurntableProgress = (bool) => {
         //clone each turntable
         let turntableLeftClone = this.state.turntableLeft.slice();
         let turntableRightClone = this.state.turntableRight.slice();
 
         //turntabble right turn on progress to 0 and turn the video to play
         turntableRightClone[0].progress = 0;
-        turntableRightClone[0].play = true;
+        turntableRightClone[0].play = bool;
         //turntabble left on progress to 0 and turn the video to play
         turntableLeftClone[0].progress = 0;
-        turntableLeftClone[0].play = true;
+        turntableLeftClone[0].play = bool;
         //setState the modifications
         this.setState({
             turntableLeft: turntableLeftClone,
             turntableRight: turntableRightClone,
-            seeking: true,
+            seeking: bool,
         });
 
 

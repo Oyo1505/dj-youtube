@@ -56,13 +56,14 @@ class AudioMixer extends React.Component {
         }
     }
     handlePullpUp = () => {
+        this.props.reset(false);
         var rewindTurntables = this.refs.rewind;
         rewindTurntables.currentTime = 0;
         rewindTurntables.play();
     }
 
     canPlay = () => {
-        this.props.reset();
+        this.props.reset(true);
     }
 
     render() {
@@ -97,7 +98,7 @@ class AudioMixer extends React.Component {
 					<button className="button-social-media-panel"><i className="icon icon-share"></i>Share</button>
 					<button className="button-social-media-panel"onClick={this.handlePullpUp}><audio preload="none" ref="rewind"  onEnded={this.canPlay}  src={rewind} ></audio><i className="icon icon-pullup"></i>Pull Up</button>
 					<button className="button-social-media-panel last"><i className="icon icon-keyboard"></i>ShortCuts</button>
-                    <button className="button-social-media-panel last"><i className="icon icon-keyboard"></i>Dub Alarms</button>
+                    <button className="button-social-media-panel last"><i className="icon icon-siren"></i>Dub Alarms</button>
 				</div>
 			</div>
         );

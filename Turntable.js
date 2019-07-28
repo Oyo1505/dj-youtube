@@ -22,19 +22,26 @@ class Turntable extends React.Component {
             video: null,
             title: '',
             toggle: false,
-            layerX:0,
-            widthTarget:0,
-            seeking:false
+            layerX: 0,
+            widthTarget: 0,
+            seeking: false
         }
     }
-    componentDidMount =()=>{
-       
-        this.setState({widthTarget:this.refs.progressBar.clientWidth})
-    }
-    shouldComponentUpdate = (nextProps, nextState)=>{
+    componentDidMount = () => {
 
-       
-        if(nextProps !== nextState){
+        this.setState({ widthTarget: this.refs.progressBar.clientWidth })
+    }
+    replaceString = (title) => {
+
+        let newTitle = `${title.substr(0, 65)}...`;
+
+        return newTitle;
+
+    }
+    shouldComponentUpdate = (nextProps, nextState) => {
+
+
+        if (nextProps !== nextState) {
 
             return true;
         }
@@ -61,7 +68,7 @@ class Turntable extends React.Component {
 
         this.props.action(this.props.name, bool);
         this.setState({ toggle: bool });
-        
+
     }
     onDelete = () => {
 
@@ -74,11 +81,11 @@ class Turntable extends React.Component {
         let layerX = event.nativeEvent.layerX;
         let progressWidth = event.target.clientWidth;
         let newPositionOnTheBar = parseInt(event.nativeEvent.layerX / progressWidth * 100);
-        
-        this.setState({layerX : newPositionOnTheBar})
+
+        this.setState({ layerX: newPositionOnTheBar })
     }
     onSeekChange = (event, bool) => {
-        
+
         let percent = this.state.layerX;
         let durationSong = this.props.song.duration;
 
@@ -88,10 +95,10 @@ class Turntable extends React.Component {
         //turntable
         let turntable = this.props.name;
 
-         //can play
-         this.props.seek(this.props.name, true);
+        //can play
+        this.props.seek(this.props.name, true);
         this.props.changeProgressSong(this.props.name, newValueSeconds);
-        this.setState({ toggle:true});
+        this.setState({ toggle: true });
 
         this.props.action(turntable, true);
     }
@@ -99,11 +106,11 @@ class Turntable extends React.Component {
 
 
     render() {
-       //console.log(this.props.song.progress,"turn")
-     /*  const positionX = this.props.song.progress;
-        let progressWidth = this.state.widthTarget;
-        let newPositionOnTheBar = positionX / progressWidth * 100;*/
-       
+        //console.log(this.props.song.progress,"turn")
+        /*  const positionX = this.props.song.progress;
+           let progressWidth = this.state.widthTarget;
+           let newPositionOnTheBar = positionX / progressWidth * 100;*/
+
         return (
             <div className="module-dj">
                 <div className="input-dj-video">
@@ -125,13 +132,13 @@ class Turntable extends React.Component {
                         
                         > 
 
-                             <div className="range-song-duration"  onTransitionEnd={this.onSeekChange} style={{width: `${this.state.layerX}%`}}> </div> 
+                        <div className="range-song-duration"  onTransitionEnd={this.onSeekChange} style={{width: `${this.state.layerX}%`}}> </div> 
                            
-                                <div className="marker"><p></p></div>
-                                <div className="marker"><p></p></div>
-                                <div className="marker"><p></p></div> 
-                                <div className="marker"><p></p></div> 
-                                <div className="timers">
+                        <div className="marker"><p></p></div>
+                        <div className="marker"><p></p></div>
+                        <div className="marker"><p></p></div> 
+                        <div className="marker"><p></p></div> 
+                        <div className="timers">
                                      <div className="text-duration-left">
                                     {this.props.song.progress <= 9 &&
                                          <span> 00:0{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
@@ -155,7 +162,7 @@ class Turntable extends React.Component {
 
                         </div>
                         <div className="panel-body-turntable">
-                            <p className="title-name-song">{this.state.title}</p>
+                            <p className="title-name-song">{this.replaceString(this.state.title)}</p>
                             <img src={vinyl} alt="vinyl-turntable" className={this.state.toggle ? "spin" : " "} />
 
                             <SpeedRange playbackrate={this.getPlayBackRate} speed={this.props.song.playbackRate} />

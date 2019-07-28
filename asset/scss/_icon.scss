@@ -196,6 +196,14 @@ $icon-layout : smart;
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.icon-siren {
+    height: 20px;
+    width: 20px;
+    background-image: url('../../images/icon/siren.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
 .icon-edit {
     height: 20px;
     width: 20px;
@@ -301,6 +309,36 @@ $icon-layout : smart;
     float: right;
 
 }
+
+.icon-pause-dj {
+    height: 24px;
+    width: 24px;
+    background-image: url('../../images/icon/music-player-pause-lines.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    float: right;
+
+}
+.icon-play-dj {
+    height: 24px;
+    width: 24px;
+    background-image: url('../../images/icon/music-player-play.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    float: right;
+
+}
+
+.icon-fast-foward {
+    height: 24px;
+    width: 24px;
+    background-image: url('../../images/icon/fast-forward.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    float: right;
+
+}
+
 
 @media only screen and (min-width: 481px) {
     .section-icon {
