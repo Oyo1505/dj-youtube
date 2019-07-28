@@ -2,9 +2,6 @@ import React, { Fragment } from 'react';
 import Turntable from './Turntable';
 import AudioMixer from './AudioMixer';
 import KeyboardEventHandler from 'react-keyboard-event-handler';
-//import keydown from 'react-keydown';
-
-//@keydown
 
 
 class DjApp extends React.Component {
@@ -194,7 +191,7 @@ class DjApp extends React.Component {
         //clone turtables
         let turntableLeftClone = this.state.turntableLeft.slice();
         let turntableRightClone = this.state.turntableRight.slice();
-        console.log(seek)
+        
         //check the name of the turntable and change the proprety of seek
         if (turntable === turntableRightClone[0].name) {
 
@@ -232,7 +229,7 @@ class DjApp extends React.Component {
 
     render() {
         const { isFetching } = this.state.isFetching;
-
+        
         return (
             <div>
 

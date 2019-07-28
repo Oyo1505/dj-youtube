@@ -14,7 +14,7 @@ class VideoItems extends React.Component {
         let id = event.target.dataset.id;
         let title = event.target.dataset.name;
         this.props.action(id, title);
-        this.props.delete()
+        this.props.delete();
     }
 
     onClear = (event) => {

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import Modal from 'react-bootstrap/Modal';
 import VolumeController from './VolumeController';
 import VideoMiddle from './VideoMiddle';
-import  rewind from "../../sounds/kamelott/rewind.mp3";
+import rewind from "../../sounds/kamelott/rewind.mp3";
+//import Toggle from "../../Utilities/Toggle";
 
 class AudioMixer extends React.Component {
 
@@ -11,7 +13,8 @@ class AudioMixer extends React.Component {
         this.state = {
             volumeLeft: 0,
             volumeRight: 0,
-            crossfader: 0
+            crossfader: 0,
+            toggle: false
         }
     }
 
@@ -65,42 +68,68 @@ class AudioMixer extends React.Component {
     canPlay = () => {
         this.props.reset(true);
     }
-
+    toggle = () => {
+        this.setState({ toggle: !this.state.toggle })
+    }
+    handleCloseModal = () => {
+        this.setState({ toggle: !this.state.toggle })
+    }
     render() {
 
         return (
             <div className="module-dj audio-mixer-panel"> 
-				
-				<div className="panel-back panel-default panel-sound-control">
-					<VolumeController  volume={this.getVolumes} crossfader={this.handleValueCrossfader}/>
-				</div>
-				<div className=" panel-default panel-video-audio-mixer">
-					<VideoMiddle 
-					turntable={this.props.left} 
-					duration={this.getDuration} 
-					volume={this.state.volumeLeft} 
-					progress={this.getProgress}
-					seek={this.getSeek}
+                
+                <div className="panel-back panel-default panel-sound-control">
+                    <VolumeController  volume={this.getVolumes} crossfader={this.handleValueCrossfader}/>
+                </div>
+                <div className=" panel-default panel-video-audio-mixer">
+                    <VideoMiddle 
+                    turntable={this.props.left} 
+                    duration={this.getDuration} 
+                    volume={this.state.volumeLeft} 
+                    progress={this.getProgress}
+                    seek={this.getSeek}
                     seeking={this.props.seeking}
-					/>
+                    />
 
-					<VideoMiddle 
-					turntable={this.props.right} 
-					duration={this.getDuration} 
-					volume={this.state.volumeRight} 
-					progress={this.getProgress} 
-					seek={this.getSeek}
+                    <VideoMiddle 
+                    turntable={this.props.right} 
+                    duration={this.getDuration} 
+                    volume={this.state.volumeRight} 
+                    progress={this.getProgress} 
+                    seek={this.getSeek}
                     seeking={this.props.seeking}
-					/>
-				</div>
-				<div className="panel-back panel-default social-media-panel">
-					<button className="button-social-media-panel" ><i className="icon icon-like-white"></i> Like</button> 
-					<button className="button-social-media-panel"><i className="icon icon-share"></i>Share</button>
-					<button className="button-social-media-panel"onClick={this.handlePullpUp}><audio preload="none" ref="rewind"  onEnded={this.canPlay}  src={rewind} ></audio><i className="icon icon-pullup"></i>Pull Up</button>
-					<button className="button-social-media-panel last"><i className="icon icon-keyboard"></i>ShortCuts</button>
+                    />
+                </div>
+                <div className="panel-back panel-default social-media-panel">
+                
+                                 <Fragment>
+                                 <button className="button-social-media-panel" onClick={this.toggle} >
+                                 <i className="icon icon-like-white"></i> Like </button>
+                               
+                                    <Modal  
+                                    size="sm"  
+                                     aria-labelledby="contained-modal-title-vcenter"
+                                    centered  
+                                    animation={true}
+                                    onHide={this.handleCloseModal}
+                                    show={this.state.toggle} 
+                                    >
+                                    <Modal.Title>It's a trap </Modal.Title>
+                                     <Modal.Body>
+                                        Hé non ! Tu ne likera pas car ce boutton ne marche pas mais tu peux toujours me contacter pour du travail.
+
+
+                                     </Modal.Body>
+                                     </Modal>
+                                </Fragment>
+                     
+                    <button className="button-social-media-panel"><i className="icon icon-share"></i>Share</button>
+                    <button className="button-social-media-panel"onClick={this.handlePullpUp}><audio preload="none" ref="rewind"  onEnded={this.canPlay}  src={rewind} ></audio><i className="icon icon-pullup"></i>Pull Up</button>
+                    <button className="button-social-media-panel last"><i className="icon icon-keyboard"></i>ShortCuts</button>
                     <button className="button-social-media-panel last"><i className="icon icon-siren"></i>Dub Alarms</button>
-				</div>
-			</div>
+                </div>
+            </div>
         );
     }
 }

@@ -33,7 +33,7 @@ class Turntable extends React.Component {
     }
     replaceString = (title) => {
 
-        let newTitle = `${title.substr(0, 65)}...`;
+        let newTitle = `${title.substr(0, 65)}`;
 
         return newTitle;
 
@@ -110,7 +110,7 @@ class Turntable extends React.Component {
         /*  const positionX = this.props.song.progress;
            let progressWidth = this.state.widthTarget;
            let newPositionOnTheBar = positionX / progressWidth * 100;*/
-
+        
         return (
             <div className="module-dj">
                 <div className="input-dj-video">

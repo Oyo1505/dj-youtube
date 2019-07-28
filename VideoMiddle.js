@@ -23,15 +23,15 @@ export default class VideoMiddle extends React.Component {
         // We only want to update time slider if we are not currently seeking
         if (!this.props.seeking) {
 
-            let playedSeconds = parseInt(state.playedSeconds)
+            let playedSeconds = parseInt(state.playedSeconds);
             this.setState({ playedSeconds: playedSeconds });
             this.props.progress(this.props.turntable.name, playedSeconds);
 
         } else if (this.props.seeking) {
 
-            let playedSeconds = parseInt(state.playedSeconds)
+            let playedSeconds = parseInt(state.playedSeconds);
             this.setState({ playedSeconds: playedSeconds });
-            this.props.seek(this.props.turntable.name, false)
+            this.props.seek(this.props.turntable.name, false);
             this.props.progress(this.props.turntable.name, playedSeconds);
            
         }
@@ -48,9 +48,7 @@ export default class VideoMiddle extends React.Component {
     render() {
 
         if (this.props.seeking) {
-             console.log(this.props.turntable.progress,this.props.turntable.name )
             this.player.seekTo(this.props.turntable.progress);
-
         }
       
         const url = `https://www.youtube.com/watch?v=${this.props.turntable.video}`

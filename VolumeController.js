@@ -14,12 +14,12 @@ export default class AudioController extends React.Component {
 	handleVolume = (event) => {
 		let level = parseFloat(event.target.value);
 		let turntable = event.target.name;
-		this.props.volume(level, turntable)
+		this.props.volume(level, turntable);
 		
 		if(event.target.name === "volumeRight"){
-			this.setState({valueRight:event.target.value })
+			this.setState({valueRight:event.target.value });
 		}else if (event.target.name === "volumeLeft"){
-			this.setState({valueLeft:event.target.value })
+			this.setState({valueLeft:event.target.value });
 		}
 	}
 
