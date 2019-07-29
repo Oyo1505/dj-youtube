@@ -144,7 +144,7 @@ class AudioMixer extends React.Component {
                                         <span>Désolé ! Tu ne peux pas liker ce mix pas car ce boutton ne marche pas mais tu peux toujours me contacter pour du travail. 😏</span>
                                         <br/>
                                         <br/>
-                                        <a href="https://github.com/Oyo1505"><i className="icon icon-github"></i>Tu peux visiter mon Github!</a>
+                                        <a href="https://github.com/Oyo1505"><i className="icon icon-github-black"></i> Tu peux visiter mon Github!</a>
                                         <br/>
                                        <span> ou m'appeler  au  07 83 06 72 40</span>
                                         
