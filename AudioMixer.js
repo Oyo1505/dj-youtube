@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
-import Modal from 'react-bootstrap/Modal';
+import FormContact from "../FormContact"
+import { Modal } from 'react-bootstrap';
 import VolumeController from './VolumeController';
 import VideoMiddle from './VideoMiddle';
 import rewind from "../../sounds/kamelott/rewind.mp3";
+import axios from 'axios'
 //import Toggle from "../../Utilities/Toggle";
 
 class AudioMixer extends React.Component {
@@ -74,6 +76,28 @@ class AudioMixer extends React.Component {
     handleCloseModal = () => {
         this.setState({ toggle: !this.state.toggle })
     }
+    handleSubmit = async (e) => {
+        e.preventDefault();
+        const name = e.target.name.value;
+        const email = e.target.email.value;
+        const message = e.target.message.value;
+        const data = { name, email, message };
+
+        const form = await axios.post('/api/form', data)
+            .then(response => {
+                console.log('message Envoyer');
+            }).catch(err => {
+                console.log('message pas Envoyer');
+                console.log(err);
+            });
+
+        this.setState({
+            name: '',
+            email: '',
+            message: ''
+        });
+        alert('Merci Pour votre message');
+    }
     render() {
 
         return (
@@ -108,18 +132,24 @@ class AudioMixer extends React.Component {
                                  <i className="icon icon-like-white"></i> Like </button>
                                
                                     <Modal  
-                                    size="sm"  
+                                    size="l"  
                                      aria-labelledby="contained-modal-title-vcenter"
                                     centered  
                                     animation={true}
                                     onHide={this.handleCloseModal}
                                     show={this.state.toggle} 
                                     >
-                                    <Modal.Title>It's a trap </Modal.Title>
-                                     <Modal.Body>
-                                        Hé non ! Tu ne likera pas car ce boutton ne marche pas mais tu peux toujours me contacter pour du travail.
-
-
+                                    <Modal.Title className="title-modal-djyoutube"> It's a trap ! 🙊</Modal.Title>
+                                     <Modal.Body className="modal-body-djyoutube">
+                                        <span>Désolé ! Tu ne peux pas liker ce mix pas car ce boutton ne marche pas mais tu peux toujours me contacter pour du travail. 😏</span>
+                                        <br/>
+                                        <br/>
+                                        <a href="https://github.com/Oyo1505"><i className="icon icon-github"></i>Tu peux visiter mon Github!</a>
+                                        <br/>
+                                       <span> ou m'appeler  au  07 83 06 72 40</span>
+                                        
+                                        <br/>
+                                        <FormContact />
                                      </Modal.Body>
                                      </Modal>
                                 </Fragment>
