@@ -282,17 +282,16 @@ input[type=range]::range-progress {
 
     #formContact {
         padding: 0;
-        .contact2-form-btn{
+
+        .contact2-form-btn {
             background-color: #EC3131;
         }
-        
+
     }
 }
 
 /*END OF MODAL*/
-.social-media-panel {
-    min-height: 150px;
-}
+
 
 .audio-mixer-panel {
     display: flex;
@@ -327,7 +326,56 @@ input[type=range]::range-progress {
     padding-left: 10px;
     padding-right: 10px;
     text-align: center;
+    min-height: 150px;
+    position: relative;
+    z-index: 0;
 
+    .button-social-media-panel {
+        position: relative;
+        z-index: 2;
+    }
+
+}
+
+.menu-share-panel {
+    z-index: 1000;
+    margin: 0 auto;
+    text-align: center;
+    position: absolute;
+    top: 60px;
+    width: 86%;
+    height: 150px;
+    background-color: white;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 3px;
+
+    .network-share-button-panel {
+        text-align: left;
+        padding: 10px;
+        margin: 10px 10px 15px 10px;
+        border-radius: 5px;
+        font-weight: 400;
+        font-size: 0.75em;
+        display: inline-block;
+       /*float: left;*/
+        color: #FFFFFF;
+       /* &:after {
+            clear: both;
+        }*/
+
+
+    }
+}
+
+.facebook-share-button-panel {
+    background-color: #2D4373;
+}
+
+.twitter-share-button-panel {
+    background-color: #1B91DA;
 }
 
 .pads {

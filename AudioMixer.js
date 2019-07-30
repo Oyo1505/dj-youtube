@@ -1,11 +1,13 @@
 import React, { Fragment } from 'react';
+import {  FacebookShareButton,  TwitterShareButton, TwitterIcon, FacebookIcon } from 'react-share';
+
 import FormContact from "../FormContact"
 import { Modal } from 'react-bootstrap';
 import VolumeController from './VolumeController';
 import VideoMiddle from './VideoMiddle';
 import rewind from "../../sounds/kamelott/rewind.mp3";
 import axios from 'axios'
-//import Toggle from "../../Utilities/Toggle";
+
 
 class AudioMixer extends React.Component {
 
@@ -16,7 +18,8 @@ class AudioMixer extends React.Component {
             volumeLeft: 0,
             volumeRight: 0,
             crossfader: 0,
-            toggle: false
+            toggle: false,
+            isShowing: false
         }
     }
 
@@ -98,8 +101,20 @@ class AudioMixer extends React.Component {
         });
         alert('Merci Pour votre message');
     }
-    render() {
+   
 
+    showShareMenu = ()=> {
+        this.setState({isShowing : !this.state.isShowing})
+        
+    }
+
+    closeShareMenu = () => {
+        console.log('eee')
+        this.setState({isShowing : !this.state.isShowing})
+    }
+    render() {
+     const shareUrl = "https://www.henripierrerigoulet.fr/dj-youtube";
+     const title = "Hey check this out! Visit my Website: https://www.henripierrerigoulet.fr/, Github : https://github.com/Oyo1505 or join me on Twitch : https://www.twitch.tv/oyo1505 #react #devweb";
         return (
             <div className="module-dj audio-mixer-panel"> 
                 
@@ -126,7 +141,7 @@ class AudioMixer extends React.Component {
                     />
                 </div>
                 <div className="panel-back panel-default social-media-panel">
-                
+                    <div>
                                  <Fragment>
                                  <button className="button-social-media-panel" onClick={this.toggle} >
                                  <i className="icon icon-like-white"></i> Like </button>
@@ -154,13 +169,33 @@ class AudioMixer extends React.Component {
                                      </Modal>
                                 </Fragment>
                      
-                    <button className="button-social-media-panel"><i className="icon icon-share"></i>Share</button>
-                    <button className="button-social-media-panel"onClick={this.handlePullpUp}><audio preload="none" ref="rewind"  onEnded={this.canPlay}  src={rewind} ></audio><i className="icon icon-pullup"></i>Pull Up</button>
-                    <button className="button-social-media-panel last"><i className="icon icon-keyboard"></i>ShortCuts</button>
-                    <button className="button-social-media-panel last"><i className="icon icon-siren"></i>Dub Alarms</button>
+                        <button className="button-social-media-panel" id="share-button-panel" onClick={this.showShareMenu} onBlur={this.closeShareMenu}> <i className="icon icon-share" ></i>Share</button>
+                                 <div className="menu-share-panel"   style={{ display : this.state.isShowing ? 'block' : 'none'}}>
+                                      <TwitterShareButton
+                                       
+                                        url={shareUrl}
+                                        title={title}
+                                        className="network-share-button-panel twitter-share-button-panel">
+                                        <i className ="icon icon-twitter"></i> Share on Twitter !
+                                      </TwitterShareButton>
+                                      <FacebookShareButton
+                                        
+                                         url={shareUrl}
+                                        quote={title}
+                                        className="network-share-button-panel facebook-share-button-panel "
+                                      >
+                                     <i className ="icon icon-facebook "></i> Share on Facebook !
+                                      </FacebookShareButton>
+                                 </div>
+                        <button className="button-social-media-panel"onClick={this.handlePullpUp}><audio preload="none" ref="rewind"  onEnded={this.canPlay}  src={rewind} ></audio><i className="icon icon-pullup"></i>Pull Up</button>
+                        <button className="button-social-media-panel last"><i className="icon icon-keyboard"></i>ShortCuts</button>
+                        <button className="button-social-media-panel last"><i className="icon icon-siren"></i>Dub Alarms</button>
+                    </div>
                 </div>
             </div>
         );
     }
 }
 export default AudioMixer;
+
+/*{this.state.isShowing ? 'menu-share-djyoutube show-menu' : 'menu-share-djyoutube' }*/
