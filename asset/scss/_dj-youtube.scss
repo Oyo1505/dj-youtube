@@ -341,16 +341,39 @@ input[type=range]::range-progress {
     z-index: 1000;
     margin: 0 auto;
     text-align: center;
-    position: absolute;
+   position: absolute;
     top: 60px;
     width: 86%;
     height: 150px;
     background-color: white;
-    left: 0;
+    border: 1px #000 solid;
+   left: 0;
     right: 0;
     margin-left: auto;
     margin-right: auto;
     border-radius: 3px;
+    .items-buttons-share-djyoutube{
+        border: 1px #000 solid;
+    }
+
+    .dropdown{
+        width: 0;
+    }
+    .btn-primary {
+         color: none;
+        background-color: none;
+        border-color: none;
+        &:focus{
+            box-shadow: none;
+        }
+        &:hover{
+
+            color: none;
+            background-color: none;
+            border-color: none;
+        }
+    }
+
 
     .network-share-button-panel {
         text-align: left;
@@ -358,15 +381,10 @@ input[type=range]::range-progress {
         margin: 10px 10px 15px 10px;
         border-radius: 5px;
         font-weight: 400;
+        cursor: pointer;
         font-size: 0.75em;
         display: inline-block;
-       /*float: left;*/
         color: #FFFFFF;
-       /* &:after {
-            clear: both;
-        }*/
-
-
     }
 }
 
