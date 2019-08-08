@@ -5,6 +5,7 @@ import { Modal, Dropdown, DropdownButton } from 'react-bootstrap';
 import VolumeController from './VolumeController';
 import VideoMiddle from './VideoMiddle';
 import rewind from "../../sounds/kamelott/rewind.mp3";
+import sirenOne from '../../sounds/siren_dub_1.mp3';
 import axios from 'axios'
 
 
@@ -19,6 +20,7 @@ class AudioMixer extends React.Component {
             crossfader: 0,
             toggle: false,
             isShowing: false,
+            alarmsShowing:false,
             isFocus: false,
         }
     }
@@ -102,7 +104,25 @@ class AudioMixer extends React.Component {
         alert('Merci Pour votre message');
     }
 
+    //Alarm menu
+    handleAlarmsMenu = () => {
+         event.preventDefault();
+        this.setState({alarmsShowing:true }, ()=> {
+            document.addEventListener('click', this.closeAlarmsMenu);
+        })
+    }
+    closeAlarmsMenu = () => {
+        
+        if (!this.refs.dropdownMenuAlarms.contains(event.target)) {
+      
+              this.setState({ alarmsShowing: false }, () => {
+                document.removeEventListener('click', this.closeAlarmsMenu);
+        });  
+     }
 
+    }
+
+    /*Share menu*/
     showShareMenu = (event) => {
         event.preventDefault();
         this.setState({ isShowing: true }, () => {
@@ -120,9 +140,27 @@ class AudioMixer extends React.Component {
       
     }
   }
+
+  playAlarm = (event) => {
+    event.preventDefault();
+    const alarmSound = event.currentTarget.querySelector('audio')
+    alarmSound.currentTime = 0
+    alarmSound.play();
+  }
     render() {
+
         const shareUrl = "https://www.henripierrerigoulet.fr/dj-youtube";
         const title = "Hey check this out! Visit my Website: https://www.henripierrerigoulet.fr/, Github : https://github.com/Oyo1505 or join me on Twitch : https://www.twitch.tv/oyo1505 #react #devweb";
+        const alarmsSounds = [sirenOne];
+        let alarms;
+
+         if(this.state.alarmsShowing){
+           alarms = alarmsSounds.map((alarm, index) => {
+                
+                return <li className="alarm-item"   key={`alarm-${index}`} > <span onClick={this.playAlarm} ><audio src={alarm}></audio>{`Alarm-${index}`}</span><span> <i className='icon icon-volume-black '></i></span> </li>
+            })
+        }
+
         return (
             <div className="module-dj audio-mixer-panel"> 
                 
@@ -201,14 +239,30 @@ class AudioMixer extends React.Component {
                                       </FacebookShareButton>
 
                                       </Fragment>
+
+                                      <hr />
+
+                                        <button className="network-share-button-panel github-share-button-panel"><a href="https://github.com/Oyo1505"><i className="icon icon-github"></i>Visite mon Github</a></button>
                                       </div> 
                                    }
                                      
                                    
                                     
-                        <button className="button-social-media-panel"onClick={this.handlePullpUp}><audio preload="none" ref="rewind"  onEnded={this.canPlay}  src={rewind} ></audio><i className="icon icon-pullup"></i>Pull Up</button>
-                        <button className="button-social-media-panel last"><i className="icon icon-keyboard"></i>ShortCuts</button>
-                        <button className="button-social-media-panel last"><i className="icon icon-siren"></i>Dub Alarms</button>
+                        <button className="button-social-media-panel" onClick={this.handlePullpUp}><audio preload="none" ref="rewind"  onEnded={this.canPlay}  src={rewind} ></audio><i className="icon icon-pullup"></i>Pull Up</button>
+                        <button className="button-social-media-panel "><i className="icon icon-keyboard"></i>ShortCuts</button>
+                       
+                        <button className="button-social-media-panel last" onClick={this.handleAlarmsMenu}><i className="icon icon-siren"></i>Dub Alarms</button>
+
+                        {this.state.alarmsShowing &&
+                              <div  ref="dropdownMenuAlarms" className="menu-share-panel" style={{ display : this.state.alarmsShowing ? 'block' : 'none'}}>
+                                <ul className="alarms-items">
+                                    {alarms}
+                                </ul>
+                             </div>
+                        }
+                      
+
+                        
                     </div>
                 
             </div>

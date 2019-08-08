@@ -66,7 +66,6 @@ export default class VideoMiddle extends React.Component {
                 onProgress={this.onProgress}
                 playing={this.props.turntable.play}
                 playbackRate={this.props.turntable.playbackRate}
-               // onChange={this.onSeek}
                 onChange={this.updateVideo}
             />
         );
