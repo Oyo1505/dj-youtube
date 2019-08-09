@@ -38,18 +38,15 @@ class Turntable extends React.Component {
         return newTitle;
 
     }
+
     shouldComponentUpdate = (nextProps, nextState) => {
-
-
         if (nextProps !== nextState) {
-
             return true;
         }
     }
+
     handleVideo = async (event) => {
-
         let value = event.target.value.replace(/\s/g, "+");
-
         fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${value}&key=AIzaSyAUYnlLM70t9p7mGT7u-5odJ9c3WOXTRlE`)
             .then(response => response.json())
             .then(json => this.setState({ videos: json }));
@@ -58,20 +55,18 @@ class Turntable extends React.Component {
     getPlayBackRate = (speed) => {
         this.props.playbackrate(this.props.name, speed)
     }
-    getVideoMix = (video, title) => {
 
+    getVideoMix = (video, title) => {
         this.setState({ video, title });
         this.props.track(this.props.name, video);
     }
 
     onPlay = (bool) => {
-
         this.props.action(this.props.name, bool);
         this.setState({ toggle: bool });
-
     }
-    onDelete = () => {
 
+    onDelete = () => {
         this.setState({ videos: null });
     }
 
@@ -85,7 +80,6 @@ class Turntable extends React.Component {
         this.setState({ layerX: newPositionOnTheBar })
     }
     onSeekChange = (event, bool) => {
-
         let percent = this.state.layerX;
         let durationSong = this.props.song.duration;
 
@@ -134,10 +128,10 @@ class Turntable extends React.Component {
 
                         <div className="range-song-duration"  onTransitionEnd={this.onSeekChange} style={{width: `${this.state.layerX}%`}}> </div> 
                            
-                        <div className="marker"><p></p></div>
-                        <div className="marker"><p></p></div>
-                        <div className="marker"><p></p></div> 
-                        <div className="marker"><p></p></div> 
+                        <div className="marker" style={{left: "20%"}}><p className="label label-info unselectable">{this.props.song.pads[3]}</p></div>
+                        <div className="marker" style={{left: "40%"}}><p className="label label-info unselectable">{this.props.song.pads[4]}</p></div>
+                        <div className="marker" style={{left: "60%"}}><p className="label label-info unselectable">{this.props.song.pads[5]}</p></div> 
+                        <div className="marker" style={{left: "80%"}}><p className="label label-info unselectable">{this.props.song.pads[6]}</p></div> 
                         <div className="timers">
                                      <div className="text-duration-left">
                                     {this.props.song.progress <= 9 &&
