@@ -131,7 +131,9 @@ class DjApp extends React.Component {
         }
 
     }
+    getTouchFromPad = () => {
 
+    }
     getPlayBackRate = (turntable, speed) => {
 
         let turntableLeftClone = this.state.turntableLeft.slice();
@@ -187,7 +189,9 @@ class DjApp extends React.Component {
         }
     }
 
-    onSeek = (turntable, seek) => {
+
+
+    onSeek = (turntable, bool) => {
         //clone turtables
         let turntableLeftClone = this.state.turntableLeft.slice();
         let turntableRightClone = this.state.turntableRight.slice();
@@ -196,12 +200,12 @@ class DjApp extends React.Component {
         if (turntable === turntableRightClone[0].name) {
 
             //turntableRightClone[0].seeking = seek;
-            this.setState({ turntableRight: turntableRightClone, seeking: seek });
+            this.setState({ turntableRight: turntableRightClone, seeking: bool });
 
         } else if (turntable === turntableLeftClone[0].name) {
 
             //turntableLeftClone[0].seeking = seek;
-            this.setState({ turntableLeft: turntableLeftClone, seeking: seek });
+            this.setState({ turntableLeft: turntableLeftClone, seeking: bool });
 
         }
     }

@@ -75,12 +75,15 @@ class AudioMixer extends React.Component {
     canPlay = () => {
         this.props.reset(true);
     }
+
     toggle = () => {
         this.setState({ toggle: !this.state.toggle })
     }
+
     handleCloseModal = () => {
         this.setState({ toggle: !this.state.toggle })
     }
+    
     handleSubmit = async (e) => {
         e.preventDefault();
         const name = e.target.name.value;
@@ -104,14 +107,14 @@ class AudioMixer extends React.Component {
         alert('Merci Pour votre message');
     }
 
-    //Alarm menu
-    handleAlarmsMenu = () => {
+    //Siren menu
+    handleAlarmsMenu = (event) => {
          event.preventDefault();
         this.setState({alarmsShowing:true }, ()=> {
             document.addEventListener('click', this.closeAlarmsMenu);
         })
     }
-    closeAlarmsMenu = () => {
+    closeAlarmsMenu = (event) => {
         
         if (!this.refs.dropdownMenuAlarms.contains(event.target)) {
       

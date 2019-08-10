@@ -10,25 +10,27 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 	}
 
 	toggle = () => {
-
 		this.setState({toggle: !this.state.toggle})
-		
 		this.props.action(this.state.toggle)
 	}
 
 	onClicktoggle = (event) => {
-		//console.log(event)
 		this.setState({toggle: !this.state.toggle})
-		
 		this.props.action(!this.state.toggle)
 	}
 	back = (event) => {
-		
-		
-
 		//this.props.backfoward(fiveSeconds);
 	}
 
+	onKeyEventPads = (key) => {
+		this.props.getTouchPad(key);
+	}
+
+	onKeyEventLoop = (key) => {
+	
+		console.log(key)
+
+	}
 	render() {
 		const touchesPad = this.props.pads;
 
@@ -36,14 +38,29 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 			<div className="pads">
 							<KeyboardEventHandler
 				    handleKeys={['alphabetic']}
-				    onKeyEvent={(key, e) =>{
+				    onKeyEvent={(key) =>{
+				    	
 				    		switch (key) {
 				    			case touchesPad[0]:	
-				    			console.log(`je suis dans le  ${key}`);
 				    			return this.toggle();
 				    			break;
 				    			case touchesPad[1]:
-				    			console.log(`je suis dans le  ${key}`);
+				    			return this.onKeyEventLoop(touchesPad[1]);
+				    			break;
+				    			case touchesPad[2]:
+				    			return this.onKeyEventLoop(touchesPad[1]);
+				    			break;
+				    			case touchesPad[3]:
+				    			return this.onKeyEventPads(touchesPad[3]);
+				    			break;
+				    			case touchesPad[4]:
+				    			return this.onKeyEventPads(touchesPad[4]);
+				    			break;
+				    			case touchesPad[5]:
+				    			return this.onKeyEventPads(touchesPad[5]);
+				    			break;
+				    			case touchesPad[6]:
+				    			return this.onKeyEventPads(touchesPad[6]);
 				    			break;
 				    			
 				    		}

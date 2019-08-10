@@ -10,13 +10,9 @@ import vinyl from '../../images/vinyl-panel.png';
 
 
 class Turntable extends React.Component {
-    /*static propTypes = {
-        name: React.PropTypes.string,
-    };*/
-
     constructor(props) {
         super(props);
-        //this.progressBar = React.createRef();
+
         this.state = {
             videos: null,
             video: null,
@@ -24,19 +20,22 @@ class Turntable extends React.Component {
             toggle: false,
             layerX: 0,
             widthTarget: 0,
-            seeking: false
+            seeking: false,
+            positionMarkers: {
+                touch1: { name: this.props.song.pads[3], position: 20 },
+                touch2: { name: this.props.song.pads[4], position: 40 },
+                touch3: { name: this.props.song.pads[5], position: 60 },
+                touch4: { name: this.props.song.pads[6], position: 80 },
+            }
         }
     }
     componentDidMount = () => {
-
         this.setState({ widthTarget: this.refs.progressBar.clientWidth })
     }
+
     replaceString = (title) => {
-
         let newTitle = `${title.substr(0, 65)}`;
-
         return newTitle;
-
     }
 
     shouldComponentUpdate = (nextProps, nextState) => {
@@ -70,6 +69,33 @@ class Turntable extends React.Component {
         this.setState({ videos: null });
     }
 
+    getTouchPad = (key) => {
+
+        let positionMarkersArray = Object.values(this.state.positionMarkers);
+
+        for (var i = 0; i <= this.props.song.pads.length; i++) {
+            for (var j = 0; j <= positionMarkersArray.length; j++) {
+                if (key === positionMarkersArray[i].name) {
+                    this.onSeekChangePad(positionMarkersArray[i].position);
+                }
+            }
+        }
+    }
+
+    onSeekChangePad = (percent) => {
+        let durationSong = this.props.song.duration;
+        let newValueSeconds = percent / 100 * durationSong;
+
+        //turntable
+        let turntable = this.props.name;
+
+        //can play
+        this.props.seek(this.props.name, true);
+        this.props.changeProgressSong(this.props.name, newValueSeconds);
+        this.setState({ toggle: true });
+        this.props.action(turntable, true);
+    }
+
     onSeekMouseDown = event => {
         // new position on the progress
         event.persist()
@@ -79,6 +105,7 @@ class Turntable extends React.Component {
 
         this.setState({ layerX: newPositionOnTheBar })
     }
+
     onSeekChange = (event, bool) => {
         let percent = this.state.layerX;
         let durationSong = this.props.song.duration;
@@ -93,7 +120,6 @@ class Turntable extends React.Component {
         this.props.seek(this.props.name, true);
         this.props.changeProgressSong(this.props.name, newValueSeconds);
         this.setState({ toggle: true });
-
         this.props.action(turntable, true);
     }
 
@@ -104,7 +130,7 @@ class Turntable extends React.Component {
         /*  const positionX = this.props.song.progress;
            let progressWidth = this.state.widthTarget;
            let newPositionOnTheBar = positionX / progressWidth * 100;*/
-        
+
         return (
             <div className="module-dj">
                 <div className="input-dj-video">
@@ -128,10 +154,10 @@ class Turntable extends React.Component {
 
                         <div className="range-song-duration"  onTransitionEnd={this.onSeekChange} style={{width: `${this.state.layerX}%`}}> </div> 
                            
-                        <div className="marker" style={{left: "20%"}}><p className="label label-info unselectable">{this.props.song.pads[3]}</p></div>
-                        <div className="marker" style={{left: "40%"}}><p className="label label-info unselectable">{this.props.song.pads[4]}</p></div>
-                        <div className="marker" style={{left: "60%"}}><p className="label label-info unselectable">{this.props.song.pads[5]}</p></div> 
-                        <div className="marker" style={{left: "80%"}}><p className="label label-info unselectable">{this.props.song.pads[6]}</p></div> 
+                        <div className="marker" style={{left: `${this.state.positionMarkers.touch1.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[3].toUpperCase()}</p></div>
+                        <div className="marker" style={{left: `${this.state.positionMarkers.touch2.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[4].toUpperCase()}</p></div>
+                        <div className="marker" style={{left: `${this.state.positionMarkers.touch3.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[5].toUpperCase()}</p></div> 
+                        <div className="marker" style={{left: `${this.state.positionMarkers.touch4.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[6].toUpperCase()}</p></div> 
                         <div className="timers">
                                      <div className="text-duration-left">
                                     {this.props.song.progress <= 9 &&
@@ -160,7 +186,14 @@ class Turntable extends React.Component {
                             <img src={vinyl} alt="vinyl-turntable" className={this.state.toggle ? "spin" : " "} />
 
                             <SpeedRange playbackrate={this.getPlayBackRate} speed={this.props.song.playbackRate} />
-                           <Pads name={this.props.song.name} pads={this.props.song.pads} action={this.onPlay} canPlay={this.props.song.play} keyDown={this.props.keydown}/>
+                           <Pads 
+                               name={this.props.song.name} 
+                               pads={this.props.song.pads} 
+                               action={this.onPlay} 
+                               canPlay={this.props.song.play} 
+                               keyDown={this.props.keydown}
+                               getTouchPad={this.getTouchPad}
+                           />
                         </div>  
                     </div>
 
