@@ -27,10 +27,10 @@ class Turntable extends React.Component {
                 touch3: { name: this.props.song.pads[5], position: 60 },
                 touch4: { name: this.props.song.pads[6], position: 80 },
             },
-            loop:{
-                isLooping:false,
-                loopIn : { position:0},
-                loopOut : { position:0} 
+            loop: {
+                isLooping: false,
+                loopIn: { position: 0 },
+                loopOut: { position: 0 }
             }
         }
     }
@@ -44,9 +44,17 @@ class Turntable extends React.Component {
     }
 
     shouldComponentUpdate = (nextProps, nextState) => {
-        if (nextProps !== nextState) {
+        if (nextProps !== nextState ) {
+
+            if(this.state.loop.isLooping && this.props.song.progress === this.state.loop.loopOut.position ){
+              
+                let positionLoopIn = this.state.loop.loopIn.position;
+                this.onSeekChangeLoop(positionLoopIn);
+            }
+            
             return true;
         }
+
     }
 
     handleVideo = async (event) => {
@@ -77,50 +85,47 @@ class Turntable extends React.Component {
     getTouchPad = (key) => {
 
         let positionMarkersArray = Object.values(this.state.positionMarkers);
-        
+
         for (var j = 0; j < positionMarkersArray.length; j++) {
-         if (key === positionMarkersArray[j].name) {
-             this.onSeekChangePad(positionMarkersArray[j].position);
+            if (key === positionMarkersArray[j].name) {
+                this.onSeekChangePad(positionMarkersArray[j].position);
             }
         }
-        
+
     }
 
     handleTouchLoopIn = (key) => {
         let newLoopInPosition = this.props.song.progress;
         let cloneLoop = Object.assign(this.state.loop)
         cloneLoop.loopIn.position = newLoopInPosition;
-        this.setState({loop: cloneLoop});
+        this.setState({ loop: cloneLoop });
     }
 
-    handleTouchLoopOut= (key) => {
+    handleTouchLoopOut = (key) => {
         let newLoopOutPosition = this.props.song.progress;
         let cloneLoop = Object.assign(this.state.loop)
-        if(this.state.loop.loopIn.position !== 0  ){
+
+        if (this.state.loop.loopIn.position !== 0) {
             cloneLoop.loopOut.position = newLoopOutPosition;
             cloneLoop.isLooping = !this.state.loop.isLooping;
-            this.setState({loop:cloneLoop});
+            this.setState({ loop: cloneLoop });
 
         }
-        
+
     }
 
- 
 
-    onSeekChangeLoop = () => {
-      
-        let positionLoopIn = this.state.loop.loopIn.position;
 
+    onSeekChangeLoop = (position) => {
         //turntable
         let turntable = this.props.name;
 
-         //can play
+        //can play
         this.props.action(turntable, false);
         this.props.seek(this.props.name, true);
-        this.props.changeProgressSong(turntable, positionLoopIn);
+        this.props.changeProgressSong(turntable, position);
         this.setState({ toggle: true });
         this.props.action(turntable, true);
-
     }
 
     onSeekChangePad = (percent) => {
@@ -169,16 +174,16 @@ class Turntable extends React.Component {
 
 
     render() {
-            
-        
+
+
         /*  const positionX = this.props.song.progress;
            let progressWidth = this.state.widthTarget;
            let newPositionOnTheBar = positionX / progressWidth * 100;*/
-              const currentProgress = this.props.song.progress;
+        const currentProgress = this.props.song.progress;
 
-           if(this.state.loop.isLooping && currentProgress === this.state.loop.loopOut.position){
-                this.onSeekChangeLoop();
-           };
+        if (this.state.loop.isLooping && currentProgress === this.state.loop.loopOut.position) {
+            
+        };
 
         return (
             <div className="module-dj">
@@ -198,7 +203,6 @@ class Turntable extends React.Component {
                         className="progressbar-music"
                         onClick={this.onSeekMouseDown}
                         data-max={this.props.song.duration} 
-                        onChange={this.startLoop}
                         > 
 
                         <div className="range-song-duration"  onTransitionEnd={this.onSeekChange} style={{width: `${this.state.layerX}%`}}> </div> 
@@ -208,20 +212,18 @@ class Turntable extends React.Component {
                         <div className="marker" style={{left: `${this.state.positionMarkers.touch3.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[5].toUpperCase()}</p></div> 
                         <div className="marker" style={{left: `${this.state.positionMarkers.touch4.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[6].toUpperCase()}</p></div> 
                         <div className="timers">
-                                     <div className="text-duration-left">
-                                    {this.props.song.progress <= 9 &&
-                                         <span> 00:0{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
-                                    }
-                                    {this.props.song.progress > 9 && this.props.song.progress <= 59 &&
-                                         <span> 00:{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
+                          <div className="text-duration-left">
+                                 {this.props.song.progress <= 9 &&
+                                       <span> 00:0{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
+                                 }
+                                 {this.props.song.progress > 9 && this.props.song.progress <= 59 &&
+                                      <span> 00:{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
+                                }
+                                {this.props.song.progress > 59 &&
+                                    <span>{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
 
-                                    }
-                                    {this.props.song.progress > 59 &&
-                                         <span>{moment.duration(this.props.song.progress,"seconds").format("h:mm:ss")}</span>
-
-                                    }
-
-                                    </div>
+                                }
+                                 </div>
                                      <div className="text-duration-right">
                                         <span>{moment.duration(this.props.song.duration,"seconds").format("h:mm:ss")}</span>
                                     </div>
