@@ -131,9 +131,7 @@ class DjApp extends React.Component {
         }
 
     }
-    getTouchFromPad = () => {
-
-    }
+    
     getPlayBackRate = (turntable, speed) => {
 
         let turntableLeftClone = this.state.turntableLeft.slice();

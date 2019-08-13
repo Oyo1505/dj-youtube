@@ -26,10 +26,12 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 		this.props.getTouchPad(key);
 	}
 
-	onKeyEventLoop = (key) => {
-	
-		console.log(key)
+	onKeyEventLoopIn = (key) => {
+		this.props.handleTouchLoopIn(key)
+	}
 
+	onKeyEventLoopOut = (key) => {
+		this.props.handleTouchLoopOut(key)
 	}
 	render() {
 		const touchesPad = this.props.pads;
@@ -45,10 +47,10 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 				    			return this.toggle();
 				    			break;
 				    			case touchesPad[1]:
-				    			return this.onKeyEventLoop(touchesPad[1]);
+				    			return this.onKeyEventLoopIn(touchesPad[1]);
 				    			break;
 				    			case touchesPad[2]:
-				    			return this.onKeyEventLoop(touchesPad[1]);
+				    			return this.onKeyEventLoopOut(touchesPad[2]);
 				    			break;
 				    			case touchesPad[3]:
 				    			return this.onKeyEventPads(touchesPad[3]);
@@ -68,15 +70,17 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 				    >
 				</KeyboardEventHandler>
 				<div className="pads-buttons">
-					<button className="btn-pads icon-pads" >Loop<br/>i<span className="tiny-letters"  >{this.props.pads[1].toUpperCase()}</span>n</button>
-					<button className="btn-pads icon-pads" >Loop<br/>out<span className="tiny-letters"  >{this.props.pads[2].toUpperCase()}</span></button>
+				
+					<button className="btn-pads icon-pads" style={{visibility : this.props.looping ?  "hidden" : "visible"}}>Loop<br/>i<span className="tiny-letters"  >{this.props.pads[1].toUpperCase()}</span>n</button>
+					<button className="btn-pads " style={{backgroundColor : this.props.looping ? "red" : "#6999a1" }}>Loop<br/>out<span className="tiny-letters"  >{this.props.pads[2].toUpperCase()}</span></button>
 					<button className="btn-pads icon-pads" onClick={this.foward} ><i className="icon icon-fast-foward"></i><span className="tiny-letters">5 sec</span></button>
+					
 					<p className="btn-pads icon-pads" onMouseDown={this.onClicktoggle} ><i className={this.props.canPlay ? 'icon icon-pause-dj' : 'icon icon-play-dj'}></i><span className="tiny-letters">{this.props.pads[0].toUpperCase()}</span></p>
 				</div>
 				
 				<div className="pads-buttons">
 
-					<p className="btn-pads letters-pads" onKeyPress={this.back} >{this.props.pads[3].toUpperCase()}</p>
+					<p className="btn-pads letters-pads" >{this.props.pads[3].toUpperCase()}</p>
 					<p className="btn-pads letters-pads" >{this.props.pads[4].toUpperCase()}</p>
 					<p className="btn-pads letters-pads" >{this.props.pads[5].toUpperCase()}</p>
 					<p className="btn-pads letters-pads" >{this.props.pads[6].toUpperCase()}</p>
@@ -87,41 +91,3 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 	}
 }
 export default Pads;
-
-/*		 <KeyboardEventHandler
-				    handleKeys={touchesPad}
-				    onKeyEvent={(key, e) =>{
-				    		switch (key) {
-				    			case touchesPad[0]:
-				    				 this.setState({toggle:!this.state.toggle});
-				    			console.log(`je suis dans le  ${touchesPad[0]}`);
-				    			break;
-				    			case touchesPad[1]:
-				    			console.log(`je suis dans le  ${touchesPad[1]}`);
-				    			break;
-				    			case touchesPad[2]:
-				    			console.log(`je suis dans le  ${touchesPad[2]}`);
-				    			break;
-				    			case touchesPad[3]:
-				    			console.log(`je suis dans le  ${touchesPad[3]}`);
-				    			break;
-				    			case touchesPad[4]:
-				    			console.log(`je suis dans le  ${touchesPad[4]}`);
-				    			break;
-				    			case touchesPad[5]:
-				    			console.log(`je suis dans le  ${touchesPad[5]}`);
-				    			break;
-				    			case touchesPad[6]:
-				    			console.log(`je suis dans le  ${touchesPad[6]}`);
-				    			break;
-				    			default: 
-							    console.log("unknown category");
-							    break;
-				    		}
-				    		/*if(key === touchesPad[0]){
-				    			 this.setState({toggle:!this.state.toggle});
-				    			console.log(e)
-				    		}
-				    	}}
-				    >
-					</KeyboardEventHandler>*/

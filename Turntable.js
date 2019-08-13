@@ -26,6 +26,11 @@ class Turntable extends React.Component {
                 touch2: { name: this.props.song.pads[4], position: 40 },
                 touch3: { name: this.props.song.pads[5], position: 60 },
                 touch4: { name: this.props.song.pads[6], position: 80 },
+            },
+            loop:{
+                isLooping:false,
+                loopIn : { position:0},
+                loopOut : { position:0} 
             }
         }
     }
@@ -72,14 +77,50 @@ class Turntable extends React.Component {
     getTouchPad = (key) => {
 
         let positionMarkersArray = Object.values(this.state.positionMarkers);
-
-        for (var i = 0; i <= this.props.song.pads.length; i++) {
-            for (var j = 0; j <= positionMarkersArray.length; j++) {
-                if (key === positionMarkersArray[i].name) {
-                    this.onSeekChangePad(positionMarkersArray[i].position);
-                }
+        
+        for (var j = 0; j < positionMarkersArray.length; j++) {
+         if (key === positionMarkersArray[j].name) {
+             this.onSeekChangePad(positionMarkersArray[j].position);
             }
         }
+        
+    }
+
+    handleTouchLoopIn = (key) => {
+        let newLoopInPosition = this.props.song.progress;
+        let cloneLoop = Object.assign(this.state.loop)
+        cloneLoop.loopIn.position = newLoopInPosition;
+        this.setState({loop: cloneLoop});
+    }
+
+    handleTouchLoopOut= (key) => {
+        let newLoopOutPosition = this.props.song.progress;
+        let cloneLoop = Object.assign(this.state.loop)
+        if(this.state.loop.loopIn.position !== 0  ){
+            cloneLoop.loopOut.position = newLoopOutPosition;
+            cloneLoop.isLooping = !this.state.loop.isLooping;
+            this.setState({loop:cloneLoop});
+
+        }
+        
+    }
+
+ 
+
+    onSeekChangeLoop = () => {
+      
+        let positionLoopIn = this.state.loop.loopIn.position;
+
+        //turntable
+        let turntable = this.props.name;
+
+         //can play
+        this.props.action(turntable, false);
+        this.props.seek(this.props.name, true);
+        this.props.changeProgressSong(turntable, positionLoopIn);
+        this.setState({ toggle: true });
+        this.props.action(turntable, true);
+
     }
 
     onSeekChangePad = (percent) => {
@@ -90,6 +131,7 @@ class Turntable extends React.Component {
         let turntable = this.props.name;
 
         //can play
+        this.props.action(turntable, false);
         this.props.seek(this.props.name, true);
         this.props.changeProgressSong(this.props.name, newValueSeconds);
         this.setState({ toggle: true });
@@ -117,6 +159,7 @@ class Turntable extends React.Component {
         let turntable = this.props.name;
 
         //can play
+        this.props.action(turntable, false);
         this.props.seek(this.props.name, true);
         this.props.changeProgressSong(this.props.name, newValueSeconds);
         this.setState({ toggle: true });
@@ -126,10 +169,16 @@ class Turntable extends React.Component {
 
 
     render() {
-        //console.log(this.props.song.progress,"turn")
+            
+        
         /*  const positionX = this.props.song.progress;
            let progressWidth = this.state.widthTarget;
            let newPositionOnTheBar = positionX / progressWidth * 100;*/
+              const currentProgress = this.props.song.progress;
+
+           if(this.state.loop.isLooping && currentProgress === this.state.loop.loopOut.position){
+                this.onSeekChangeLoop();
+           };
 
         return (
             <div className="module-dj">
@@ -149,7 +198,7 @@ class Turntable extends React.Component {
                         className="progressbar-music"
                         onClick={this.onSeekMouseDown}
                         data-max={this.props.song.duration} 
-                        
+                        onChange={this.startLoop}
                         > 
 
                         <div className="range-song-duration"  onTransitionEnd={this.onSeekChange} style={{width: `${this.state.layerX}%`}}> </div> 
@@ -189,10 +238,13 @@ class Turntable extends React.Component {
                            <Pads 
                                name={this.props.song.name} 
                                pads={this.props.song.pads} 
-                               action={this.onPlay} 
+                               action={this.onPlay}
+                               looping={this.state.loop.isLooping} 
                                canPlay={this.props.song.play} 
                                keyDown={this.props.keydown}
                                getTouchPad={this.getTouchPad}
+                               handleTouchLoopIn={this.handleTouchLoopIn}
+                               handleTouchLoopOut={this.handleTouchLoopOut}
                            />
                         </div>  
                     </div>
