@@ -134,26 +134,6 @@ input[type=range]::range-progress {
         border-radius: 4px;
         box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
 
-        .timers {
-            position: absolute;
-            width: 100%;
-            top: -35px;
-
-            .text-duration-left {
-                display: inline-block;
-                width: 50%;
-                text-align: left;
-                position: relative;
-            }
-
-            .text-duration-right {
-                display: inline-block;
-                width: 50%;
-                text-align: right;
-                position: relative;
-            }
-        }
-
     }
 
     .panel-body-turntable {
@@ -179,10 +159,8 @@ input[type=range]::range-progress {
         .range-speed {
             cursor: pointer;
             width: 160px !important;
-            /*-webkit-appearance: none;*/
             z-index: 200;
             border-radius: 20px;
-            /* -webkit-appearance: slider-vertical*/
 
         }
     }
@@ -208,8 +186,8 @@ input[type=range]::range-progress {
         text-align: center;
         background-color: #3097d1;
         box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
-        -webkit-transition: width .6s ease;
-        transition: width .6s ease;
+        -webkit-transition: width .3s ease;
+        transition: width .3s ease;
 
         &:after {
             content: "";
@@ -223,6 +201,72 @@ input[type=range]::range-progress {
         }
     }
 
+}
+
+.timers {
+    position: absolute;
+    width: 100%;
+    top: -35px;
+    .text-duration-left {
+        display: inline-block;
+        width: 50%;
+        text-align: left;
+        position: relative;
+    }
+
+    .text-duration-right {
+        display: inline-block;
+        width: 50%;
+        text-align: right;
+        position: relative;
+    }
+}
+
+.marker {
+    width: 4px;
+    height: 20px;
+    position: absolute;
+    bottom: 0;
+    background: #6799a1 none repeat scroll 0 0;
+    z-index: 0;
+
+    p {
+        position: absolute;
+        top: -15px;
+        left: -8px;
+        padding-top: 5px;
+    }
+
+    .progress .marker .label-info {
+        background: #6799a1 none repeat scroll 0 0;
+    }
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+
+.label {
+    display: inline;
+    padding: .2em .6em .3em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+
+.label-info {
+    background-color: #8eb4cb;
 }
 
 /*END OF TPANEL TURNATBLE*/
@@ -341,32 +385,36 @@ input[type=range]::range-progress {
     z-index: 1000;
     margin: 0 auto;
     text-align: center;
-   position: absolute;
+    position: absolute;
     top: 60px;
     width: 86%;
-    height: 150px;
+    min-height: 150px;
     background-color: white;
     border: 1px #000 solid;
-   left: 0;
+    left: 0;
     right: 0;
     margin-left: auto;
     margin-right: auto;
     border-radius: 3px;
-    .items-buttons-share-djyoutube{
+
+    .items-buttons-share-djyoutube {
         border: 1px #000 solid;
     }
 
-    .dropdown{
+    .dropdown {
         width: 0;
     }
+
     .btn-primary {
-         color: none;
+        color: none;
         background-color: none;
         border-color: none;
-        &:focus{
+
+        &:focus {
             box-shadow: none;
         }
-        &:hover{
+
+        &:hover {
 
             color: none;
             background-color: none;
@@ -378,14 +426,28 @@ input[type=range]::range-progress {
     .network-share-button-panel {
         text-align: left;
         padding: 10px;
-        margin: 10px 10px 15px 10px;
+        margin: 10px 10px 0px 10px;
         border-radius: 5px;
         font-weight: 400;
         cursor: pointer;
         font-size: 0.75em;
         display: inline-block;
         color: #FFFFFF;
+
+        a {
+            color: #FFFFFF;
+        }
     }
+}
+
+.alarms-items {
+    padding: 0;
+
+    .alarm-item {
+        padding-left: 2px;
+        text-align: left;
+    }
+
 }
 
 .facebook-share-button-panel {
@@ -394,6 +456,10 @@ input[type=range]::range-progress {
 
 .twitter-share-button-panel {
     background-color: #1B91DA;
+}
+
+.github-share-button-panel {
+    background-color: black;
 }
 
 .pads {

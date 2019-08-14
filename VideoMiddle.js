@@ -57,7 +57,7 @@ export default class VideoMiddle extends React.Component {
                 url={url} 
                 ref={this.ref}
                 width='49%'
-                height='10%'
+                
                 config={{  youtube: {
                      playerVars: { 'showinfo': 1, 'origin':'http://localhost:3000','enablejsapi' : 1 }
                  }, }}
