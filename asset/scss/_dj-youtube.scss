@@ -15,8 +15,11 @@ input[type=range]::range-progress {
     span {
         font-family: Roboto-Thin;
     }
-}
 
+}
+.modal-content{
+        margin: 0  auto;
+    }
 .turntable-container {
 
     width: 100%;
@@ -480,6 +483,9 @@ input[type=range]::range-progress {
             padding: 15px;
             margin: 5px 0;
             position: relative;
+            &:hover{
+                background-color:#FF8C00;
+            }
         }
 
         .icon-pads {

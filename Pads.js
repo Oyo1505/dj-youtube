@@ -35,7 +35,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 	}
 	render() {
 		const touchesPad = this.props.pads;
-
+		console.log(this.props.toggleLoopIn)
 		return (
 			<div className="pads">
 							<KeyboardEventHandler
@@ -71,8 +71,8 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 				</KeyboardEventHandler>
 				<div className="pads-buttons">
 				
-					<button className="btn-pads icon-pads" style={{visibility : this.props.looping ?  "hidden" : "visible"}}>Loop<br/>i<span className="tiny-letters"  >{this.props.pads[1].toUpperCase()}</span>n</button>
-					<button className="btn-pads " style={{backgroundColor : this.props.looping ? "red" : "#6999a1" }}>Loop<br/>out<span className="tiny-letters"  >{this.props.pads[2].toUpperCase()}</span></button>
+					<button className="btn-pads" onClick={(key)=>this.onKeyEventLoopIn(this.props.pads[1])} style={{backgroundColor: this.props.toggleLoopIn ? "#32CD32" : "#6999a1" , visibility : this.props.looping ?  "hidden" : "visible"}}>Loop<br/>i<span className="tiny-letters"  >{this.props.pads[1].toUpperCase()}</span>n</button>
+					<button className="btn-pads " onClick={(key)=>this.onKeyEventLoopOut(this.props.pads[2])} style={{backgroundColor : this.props.looping ? "red" : "#6999a1" }}>Loop<br/>out<span className="tiny-letters"  >{this.props.pads[2].toUpperCase()}</span></button>
 					<button className="btn-pads icon-pads" onClick={this.foward} ><i className="icon icon-fast-foward"></i><span className="tiny-letters">5 sec</span></button>
 					
 					<p className="btn-pads icon-pads" onMouseDown={this.onClicktoggle} ><i className={this.props.canPlay ? 'icon icon-pause-dj' : 'icon icon-play-dj'}></i><span className="tiny-letters">{this.props.pads[0].toUpperCase()}</span></p>
@@ -80,10 +80,10 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 				
 				<div className="pads-buttons">
 
-					<p className="btn-pads letters-pads" >{this.props.pads[3].toUpperCase()}</p>
-					<p className="btn-pads letters-pads" >{this.props.pads[4].toUpperCase()}</p>
-					<p className="btn-pads letters-pads" >{this.props.pads[5].toUpperCase()}</p>
-					<p className="btn-pads letters-pads" >{this.props.pads[6].toUpperCase()}</p>
+					<p className="btn-pads letters-pads" onClick={(key)=>this.onKeyEventPads(touchesPad[3])}>{this.props.pads[3].toUpperCase()}</p>
+					<p className="btn-pads letters-pads" onClick={(key)=>this.onKeyEventPads(touchesPad[4])}>{this.props.pads[4].toUpperCase()}</p>
+					<p className="btn-pads letters-pads" onClick={(key)=>this.onKeyEventPads(touchesPad[5])}>{this.props.pads[5].toUpperCase()}</p>
+					<p className="btn-pads letters-pads" onClick={(key)=>this.onKeyEventPads(touchesPad[6])}>{this.props.pads[6].toUpperCase()}</p>
 				</div>
 				  
 			</div>

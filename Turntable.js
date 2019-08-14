@@ -29,7 +29,10 @@ class Turntable extends React.Component {
             },
             loop: {
                 isLooping: false,
-                loopIn: { position: 0 },
+                loopIn: { 
+                    position: 0,
+                    toggle: false,
+                     },
                 loopOut: { position: 0 }
             }
         }
@@ -75,7 +78,7 @@ class Turntable extends React.Component {
 
     onPlay = (bool) => {
         this.props.action(this.props.name, bool);
-        this.setState({ toggle: bool });
+       // this.setState({ toggle: bool });
     }
 
     onDelete = () => {
@@ -98,6 +101,7 @@ class Turntable extends React.Component {
         let newLoopInPosition = this.props.song.progress;
         let cloneLoop = Object.assign(this.state.loop)
         cloneLoop.loopIn.position = newLoopInPosition;
+        cloneLoop.loopIn.toggle = !this.state.loop.loopIn.toggle;
         this.setState({ loop: cloneLoop });
     }
 
@@ -143,13 +147,13 @@ class Turntable extends React.Component {
         this.props.action(turntable, true);
     }
 
-    onSeekMouseDown = event => {
+    onSeekMouseDown = (event) => {
         // new position on the progress
         event.persist()
         let layerX = event.nativeEvent.layerX;
         let progressWidth = event.target.clientWidth;
         let newPositionOnTheBar = parseInt(event.nativeEvent.layerX / progressWidth * 100);
-
+         
         this.setState({ layerX: newPositionOnTheBar })
     }
 
@@ -164,27 +168,19 @@ class Turntable extends React.Component {
         let turntable = this.props.name;
 
         //can play
-        this.props.action(turntable, false);
+       
         this.props.seek(this.props.name, true);
         this.props.changeProgressSong(this.props.name, newValueSeconds);
-        this.setState({ toggle: true });
+      //  this.setState({ toggle: true });
         this.props.action(turntable, true);
     }
 
 
 
     render() {
-
-
         /*  const positionX = this.props.song.progress;
            let progressWidth = this.state.widthTarget;
            let newPositionOnTheBar = positionX / progressWidth * 100;*/
-        const currentProgress = this.props.song.progress;
-
-        if (this.state.loop.isLooping && currentProgress === this.state.loop.loopOut.position) {
-            
-        };
-
         return (
             <div className="module-dj">
                 <div className="input-dj-video">
@@ -241,7 +237,8 @@ class Turntable extends React.Component {
                                name={this.props.song.name} 
                                pads={this.props.song.pads} 
                                action={this.onPlay}
-                               looping={this.state.loop.isLooping} 
+                               looping={this.state.loop.isLooping}
+                               toggleLoopIn={this.state.loop.loopIn.toggle} 
                                canPlay={this.props.song.play} 
                                keyDown={this.props.keydown}
                                getTouchPad={this.getTouchPad}
