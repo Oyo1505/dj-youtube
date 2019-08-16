@@ -25,7 +25,8 @@ export default class VideoMiddle extends React.Component {
             this.setState({ playedSeconds: playedSeconds });
             this.props.progress(this.props.turntable.name, playedSeconds);
         
-        } else if (this.props.turntable.seek) {           
+        } else if (this.props.turntable.seek) {
+            this.player.seekTo(this.props.turntable.progress);           
             this.props.seek(this.props.turntable.name, false);
         }
 
@@ -36,11 +37,7 @@ export default class VideoMiddle extends React.Component {
         this.player = player
     }
     render() {
-
-        if (this.props.turntable.seek) {        
-            this.player.seekTo(this.props.turntable.progress);
-        }
-      
+        
         const url = `https://www.youtube.com/watch?v=${this.props.turntable.video}`
         return (
             <ReactPlayer 
