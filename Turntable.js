@@ -38,7 +38,7 @@ class Turntable extends React.Component {
         }
     }
     componentDidMount = () => {
-        this.setState({ widthTarget: this.refs.progressBar.clientWidth })
+        this.setState({ widthTarget: this.refs.progressBar.clientWidth });
     }
 
     replaceString = (title) => {
@@ -53,6 +53,7 @@ class Turntable extends React.Component {
               
                 let positionLoopIn = this.state.loop.loopIn.position;
                 this.onSeekChangeLoop(positionLoopIn);
+                return true;
             }
             
             return true;
@@ -78,7 +79,7 @@ class Turntable extends React.Component {
 
     onPlay = (bool) => {
         this.props.action(this.props.name, bool);
-       // this.setState({ toggle: bool });
+        this.setState({ toggle: bool });
     }
 
     onDelete = () => {
@@ -99,7 +100,7 @@ class Turntable extends React.Component {
 
     handleTouchLoopIn = (key) => {
         let newLoopInPosition = this.props.song.progress;
-        let cloneLoop = Object.assign(this.state.loop)
+        let cloneLoop = Object.assign(this.state.loop);
         cloneLoop.loopIn.position = newLoopInPosition;
         cloneLoop.loopIn.toggle = !this.state.loop.loopIn.toggle;
         this.setState({ loop: cloneLoop });
@@ -107,7 +108,7 @@ class Turntable extends React.Component {
 
     handleTouchLoopOut = (key) => {
         let newLoopOutPosition = this.props.song.progress;
-        let cloneLoop = Object.assign(this.state.loop)
+        let cloneLoop = Object.assign(this.state.loop);
 
         if (this.state.loop.loopIn.position !== 0) {
             cloneLoop.loopOut.position = newLoopOutPosition;
@@ -118,14 +119,11 @@ class Turntable extends React.Component {
 
     }
 
-
-
     onSeekChangeLoop = (position) => {
         //turntable
         let turntable = this.props.name;
 
         //can play
-        this.props.action(turntable, false);
         this.props.seek(this.props.name, true);
         this.props.changeProgressSong(turntable, position);
         this.setState({ toggle: true });
@@ -140,7 +138,7 @@ class Turntable extends React.Component {
         let turntable = this.props.name;
 
         //can play
-        this.props.action(turntable, false);
+   
         this.props.seek(this.props.name, true);
         this.props.changeProgressSong(this.props.name, newValueSeconds);
         this.setState({ toggle: true });
@@ -153,7 +151,7 @@ class Turntable extends React.Component {
         let layerX = event.nativeEvent.layerX;
         let progressWidth = event.target.clientWidth;
         let newPositionOnTheBar = parseInt(event.nativeEvent.layerX / progressWidth * 100);
-         
+         //console.log("seek mouse ");
         this.setState({ layerX: newPositionOnTheBar })
     }
 
@@ -171,13 +169,14 @@ class Turntable extends React.Component {
        
         this.props.seek(this.props.name, true);
         this.props.changeProgressSong(this.props.name, newValueSeconds);
-      //  this.setState({ toggle: true });
+        this.setState({ toggle: true });
         this.props.action(turntable, true);
     }
 
 
 
     render() {
+    
         /*  const positionX = this.props.song.progress;
            let progressWidth = this.state.widthTarget;
            let newPositionOnTheBar = positionX / progressWidth * 100;*/

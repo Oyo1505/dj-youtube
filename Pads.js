@@ -16,7 +16,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 
 	onClicktoggle = (event) => {
 		this.setState({toggle: !this.state.toggle})
-		this.props.action(!this.state.toggle)
+		this.props.action(this.state.toggle)
 	}
 	back = (event) => {
 		//this.props.backfoward(fiveSeconds);
@@ -35,7 +35,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 	}
 	render() {
 		const touchesPad = this.props.pads;
-		console.log(this.props.toggleLoopIn)
+		
 		return (
 			<div className="pads">
 							<KeyboardEventHandler
@@ -70,12 +70,11 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 				    >
 				</KeyboardEventHandler>
 				<div className="pads-buttons">
+					
 				
-					<button className="btn-pads" onClick={(key)=>this.onKeyEventLoopIn(this.props.pads[1])} style={{backgroundColor: this.props.toggleLoopIn ? "#32CD32" : "#6999a1" , visibility : this.props.looping ?  "hidden" : "visible"}}>Loop<br/>i<span className="tiny-letters"  >{this.props.pads[1].toUpperCase()}</span>n</button>
-					<button className="btn-pads " onClick={(key)=>this.onKeyEventLoopOut(this.props.pads[2])} style={{backgroundColor : this.props.looping ? "red" : "#6999a1" }}>Loop<br/>out<span className="tiny-letters"  >{this.props.pads[2].toUpperCase()}</span></button>
 					<button className="btn-pads icon-pads" onClick={this.foward} ><i className="icon icon-fast-foward"></i><span className="tiny-letters">5 sec</span></button>
 					
-					<p className="btn-pads icon-pads" onMouseDown={this.onClicktoggle} ><i className={this.props.canPlay ? 'icon icon-pause-dj' : 'icon icon-play-dj'}></i><span className="tiny-letters">{this.props.pads[0].toUpperCase()}</span></p>
+					<button className="btn-pads icon-pads" onClick={this.onClicktoggle} ><i className={this.props.canPlay ? 'icon icon-pause-dj' : 'icon icon-play-dj'}></i><span className="tiny-letters">{this.props.pads[0].toUpperCase()}</span></button>
 				</div>
 				
 				<div className="pads-buttons">
@@ -91,3 +90,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 	}
 }
 export default Pads;
+
+
+/*	<button className="btn-pads"  style={{backgroundColor: this.props.toggleLoopIn ? "#32CD32" : "#6999a1" , visibility : this.props.looping ?  "hidden" : "visible"}}>Loop<br/>i<span className="tiny-letters"  >{this.props.pads[1].toUpperCase()}</span>n</button>
+					<button className="btn-pads"  style={{backgroundColor : this.props.looping ? "red" : "#6999a1" }}>Loop<br/>out<span className="tiny-letters"  >{this.props.pads[2].toUpperCase()}</span></button>*/
