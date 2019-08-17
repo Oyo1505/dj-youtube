@@ -45,8 +45,6 @@ class DjApp extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
     
     if(nextProps !== nextState){
-        
-    //console.log( nextState, "state");
         return true
     }
     return false
@@ -240,6 +238,7 @@ class DjApp extends React.Component {
 							/>
 						</div>
 					</div>
+                    <p className="footer-djyoutube">Concept and design fully inspired by  <a href="https://youtube-dj.com/" >Youtube Dj</a> </p>
 				</div>
 		
 				)	

@@ -39,7 +39,7 @@ class Turntable extends React.Component {
     }
     componentDidMount = () => {
         this.setState({ widthTarget: this.refs.progressBar.clientWidth });
-        console.log(this.refs.cursorProgressBar)
+        
     }
 
     replaceString = (title) => {
@@ -49,6 +49,7 @@ class Turntable extends React.Component {
 
     shouldComponentUpdate = (nextProps, nextState, prevProps) => {
         if (nextProps !== nextState ) {
+
             if(this.state.loop.isLooping && this.props.song.progress === this.state.loop.loopOut.position ){
               
                 let positionLoopIn = this.state.loop.loopIn.position;
@@ -56,11 +57,8 @@ class Turntable extends React.Component {
                 return true;
             }
 
+           // console.log(this.state.layerX, nextState.layerX)
         }
-        /*if(nextProps !== prevProps){
-            
-            return true;
-        }*/
         return true;
     }
 
@@ -153,14 +151,16 @@ class Turntable extends React.Component {
     onSeekMouseDown = (event) => {
         // new position on the progress
         event.persist()
+        console.log('click')
         let layerX = event.nativeEvent.layerX;
         let progressWidth = event.target.clientWidth;
         let newPositionOnTheBar = parseInt(event.nativeEvent.layerX / progressWidth * 100);
-         //console.log("seek mouse ");
         this.setState({ layerX: newPositionOnTheBar })
+
     }
 
     onSeekChange = (event, bool) => {
+        
         let percent = this.state.layerX;
         let durationSong = this.props.song.duration;
 
@@ -196,23 +196,19 @@ class Turntable extends React.Component {
     }
 
     geThumbPositionOnProgressBar = () => {
-            console.log('im in')
-           let progress = this.props.song.progress;
-           let progressWidth = this.state.widthTarget;
-           let newPositionOnTheBar = (progress / progressWidth) * 100;
-           this.setState({layerX : newPositionOnTheBar});
-           //return position = (newPositionOnTheBar/100) * progressWidth;
-           
             
+           let percentSong = parseInt(this.props.song.progress / this.props.song.duration * 100)  ;
+           let progressWidth = this.state.widthTarget;
+           let newPositionOnTheBar = parseInt(percentSong / 100 * progressWidth);
+           return newPositionOnTheBar
     }
 
     render() {
-        
 
-           /*  let progress = this.props.song.progress;
-           let progressWidth = this.state.widthTarget;
-           let newPositionOnTheBar = (progress / progressWidth) * 100;
-           console.log(newPositionOnTheBar)*/
+            if(this.props.song.play){
+             var pos =  this.geThumbPositionOnProgressBar();
+            }
+
         return (
             <div className="module-dj">
                 <div className="input-dj-video">
@@ -233,7 +229,7 @@ class Turntable extends React.Component {
                         data-max={this.props.song.duration} 
                         > 
 
-                        <div ref="cursorProgressBar" className="range-song-duration"  onTransitionEnd={this.onSeekChange} style={{width: `${this.state.layerX}%`}}> </div> 
+                        <div ref="cursorProgressBar" className="range-song-duration"  onAnimationEnd={this.onSeekChange} style={{width : pos + "px" }}> </div> 
                            
                         <div className="marker" style={{left: `${this.state.positionMarkers.touch1.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[3].toUpperCase()}</p></div>
                         <div className="marker" style={{left: `${this.state.positionMarkers.touch2.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[4].toUpperCase()}</p></div>
@@ -286,3 +282,5 @@ class Turntable extends React.Component {
     }
 }
 export default Turntable;
+
+/*<div ref="cursorProgressBar" className="range-song-duration"  onTransitionEnd={this.onSeekChange} style={{width : this.state.layerX + "px" }}> </div> */
