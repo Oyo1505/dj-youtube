@@ -39,6 +39,7 @@ class Turntable extends React.Component {
     }
     componentDidMount = () => {
         this.setState({ widthTarget: this.refs.progressBar.clientWidth });
+        console.log(this.refs.cursorProgressBar)
     }
 
     replaceString = (title) => {
@@ -46,19 +47,21 @@ class Turntable extends React.Component {
         return newTitle;
     }
 
-    shouldComponentUpdate = (nextProps, nextState) => {
+    shouldComponentUpdate = (nextProps, nextState, prevProps) => {
         if (nextProps !== nextState ) {
-
             if(this.state.loop.isLooping && this.props.song.progress === this.state.loop.loopOut.position ){
               
                 let positionLoopIn = this.state.loop.loopIn.position;
                 this.onSeekChangeLoop(positionLoopIn);
                 return true;
             }
+
+        }
+        /*if(nextProps !== prevProps){
             
             return true;
-        }
-
+        }*/
+        return true;
     }
 
     handleVideo = async (event) => {
@@ -192,17 +195,24 @@ class Turntable extends React.Component {
 
     }
 
+    geThumbPositionOnProgressBar = () => {
+            console.log('im in')
+           let progress = this.props.song.progress;
+           let progressWidth = this.state.widthTarget;
+           let newPositionOnTheBar = (progress / progressWidth) * 100;
+           this.setState({layerX : newPositionOnTheBar});
+           //return position = (newPositionOnTheBar/100) * progressWidth;
+           
+            
+    }
 
     render() {
-        var position = 0;
-        if(this.props.song.play){
-              const positionX = this.props.song.progress;
-           let progressWidth = this.state.widthTarget;
-           let newPositionOnTheBar = positionX / progressWidth * 100;
-           // position = (newPositionOnTheBar/100) * progressWidth;
-        }
         
 
+           /*  let progress = this.props.song.progress;
+           let progressWidth = this.state.widthTarget;
+           let newPositionOnTheBar = (progress / progressWidth) * 100;
+           console.log(newPositionOnTheBar)*/
         return (
             <div className="module-dj">
                 <div className="input-dj-video">
@@ -223,7 +233,7 @@ class Turntable extends React.Component {
                         data-max={this.props.song.duration} 
                         > 
 
-                        <div className="range-song-duration"  onTransitionEnd={this.onSeekChange} style={{width: `${position}px`}}> </div> 
+                        <div ref="cursorProgressBar" className="range-song-duration"  onTransitionEnd={this.onSeekChange} style={{width: `${this.state.layerX}%`}}> </div> 
                            
                         <div className="marker" style={{left: `${this.state.positionMarkers.touch1.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[3].toUpperCase()}</p></div>
                         <div className="marker" style={{left: `${this.state.positionMarkers.touch2.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[4].toUpperCase()}</p></div>
