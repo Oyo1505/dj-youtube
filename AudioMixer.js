@@ -66,10 +66,12 @@ class AudioMixer extends React.Component {
         }
     }
     handlePullpUp = () => {
-        this.props.reset(false);
+        
         var rewindTurntables = this.refs.rewind;
         rewindTurntables.currentTime = 0;
         rewindTurntables.play();
+        this.props.reset(true, 0);
+
     }
 
     canPlay = () => {

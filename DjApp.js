@@ -151,7 +151,28 @@ class DjApp extends React.Component {
         }
     }
 
+    resetTurntableProgress = (bool, duration) => {
+        //clone each turntable
+        let turntableLeftClone = this.state.turntableLeft.slice();
+        let turntableRightClone = this.state.turntableRight.slice();
 
+        //turntabble right turn on progress to 0 and turn the video to play
+        turntableRightClone[0].progress = duration;
+        turntableRightClone[0].seek = bool;
+       // turntableRightClone[0].play = true;
+        //turntabble left on progress to 0 and turn the video to play
+        turntableLeftClone[0].progress = duration;
+        turntableLeftClone[0].seek = bool;
+        //turntableLeftClone[0].play = true;
+        //setState the modifications
+        this.setState({
+            turntableLeft: turntableLeftClone,
+            turntableRight: turntableRightClone,
+            seeking: bool,
+        });
+
+
+    }
 
     onSeek = (turntable, bool) => {
         //clone turtables
@@ -174,28 +195,7 @@ class DjApp extends React.Component {
 
 
 
-    resetTurntableProgress = (bool) => {
-        //clone each turntable
-        let turntableLeftClone = this.state.turntableLeft.slice();
-        let turntableRightClone = this.state.turntableRight.slice();
-
-        //turntabble right turn on progress to 0 and turn the video to play
-        turntableRightClone[0].progress = 0;
-        //turntableRightClone[0].seek = true;
-       // turntableRightClone[0].play = bool;
-        //turntabble left on progress to 0 and turn the video to play
-        turntableLeftClone[0].progress = 0;
-        //turntableLeftClone[0].seek = true;
-        //turntableLeftClone[0].play = bool;
-        //setState the modifications
-        this.setState({
-            turntableLeft: turntableLeftClone,
-            turntableRight: turntableRightClone,
-            seeking: bool,
-        });
-
-
-    }
+    
 
 
     render() {
