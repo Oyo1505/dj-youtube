@@ -194,10 +194,14 @@ class Turntable extends React.Component {
 
 
     render() {
-    
-          const positionX = this.props.song.progress;
+        var position = 0;
+        if(this.props.song.play){
+              const positionX = this.props.song.progress;
            let progressWidth = this.state.widthTarget;
            let newPositionOnTheBar = positionX / progressWidth * 100;
+           // position = (newPositionOnTheBar/100) * progressWidth;
+        }
+        
 
         return (
             <div className="module-dj">
@@ -219,7 +223,7 @@ class Turntable extends React.Component {
                         data-max={this.props.song.duration} 
                         > 
 
-                        <div className="range-song-duration"  onTransitionEnd={this.onSeekChange} style={{width: `${this.state.layerX}px`}}> </div> 
+                        <div className="range-song-duration"  onTransitionEnd={this.onSeekChange} style={{width: `${position}px`}}> </div> 
                            
                         <div className="marker" style={{left: `${this.state.positionMarkers.touch1.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[3].toUpperCase()}</p></div>
                         <div className="marker" style={{left: `${this.state.positionMarkers.touch2.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[4].toUpperCase()}</p></div>
