@@ -18,8 +18,9 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 		this.setState({toggle: !this.state.toggle})
 		this.props.action(this.state.toggle)
 	}
-	back = (event) => {
-		//this.props.backfoward(fiveSeconds);
+	backward = () => {
+
+		this.props.backward();
 	}
 
 	onKeyEventPads = (key) => {
@@ -72,7 +73,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 				<div className="pads-buttons">
 					
 				
-					<button className="btn-pads icon-pads" onClick={this.foward} ><i className="icon icon-fast-foward"></i><span className="tiny-letters">5 sec</span></button>
+					<button className="btn-pads icon-pads" onClick={this.backward} ><i className="icon icon-fast-foward"></i><span className="tiny-letters">5 sec</span></button>
 					
 					<button className="btn-pads icon-pads" onClick={this.onClicktoggle} ><i className={this.props.canPlay ? 'icon icon-pause-dj' : 'icon icon-play-dj'}></i><span className="tiny-letters">{this.props.pads[0].toUpperCase()}</span></button>
 				</div>

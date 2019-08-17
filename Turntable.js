@@ -173,13 +173,30 @@ class Turntable extends React.Component {
         this.props.action(turntable, true);
     }
 
+    backward = () => {
+        let currentProgress = this.props.song.progress;
+        let newValueSeconds = currentProgress - 5;
+
+        //turntable
+        let turntable = this.props.name;
+
+        //can play
+        if(currentProgress >= 5){
+            this.props.seek(this.props.name, true);
+            this.props.changeProgressSong(this.props.name, newValueSeconds);
+            this.setState({ toggle: true });
+            this.props.action(turntable, true);
+        }
+
+    }
 
 
     render() {
     
-        /*  const positionX = this.props.song.progress;
+          const positionX = this.props.song.progress;
            let progressWidth = this.state.widthTarget;
-           let newPositionOnTheBar = positionX / progressWidth * 100;*/
+           let newPositionOnTheBar = positionX / progressWidth * 100;
+
         return (
             <div className="module-dj">
                 <div className="input-dj-video">
@@ -200,7 +217,7 @@ class Turntable extends React.Component {
                         data-max={this.props.song.duration} 
                         > 
 
-                        <div className="range-song-duration"  onTransitionEnd={this.onSeekChange} style={{width: `${this.state.layerX}%`}}> </div> 
+                        <div className="range-song-duration"  onTransitionEnd={this.onSeekChange} style={{width: `${this.state.layerX}px`}}> </div> 
                            
                         <div className="marker" style={{left: `${this.state.positionMarkers.touch1.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[3].toUpperCase()}</p></div>
                         <div className="marker" style={{left: `${this.state.positionMarkers.touch2.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[4].toUpperCase()}</p></div>
@@ -243,6 +260,7 @@ class Turntable extends React.Component {
                                getTouchPad={this.getTouchPad}
                                handleTouchLoopIn={this.handleTouchLoopIn}
                                handleTouchLoopOut={this.handleTouchLoopOut}
+                               backward={this.backward}
                            />
                         </div>  
                     </div>
