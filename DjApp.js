@@ -162,12 +162,12 @@ class DjApp extends React.Component {
         if (turntable === turntableRightClone[0].name) {
             //console.log(bool,"right onSeek");
            turntableRightClone[0].seek = bool;
-            this.setState({ turntableRight: turntableRightClone, seeking: bool });
+            this.setState({ turntableRight: turntableRightClone});
 
         } else if (turntable === turntableLeftClone[0].name) {
            // console.log(bool,"left onSeek");
             turntableLeftClone[0].seek = bool;
-            this.setState({ turntableLeft: turntableLeftClone, seeking: bool });
+            this.setState({ turntableLeft: turntableLeftClone });
 
         }
     }
@@ -191,7 +191,7 @@ class DjApp extends React.Component {
         this.setState({
             turntableLeft: turntableLeftClone,
             turntableRight: turntableRightClone,
-            //seeking: bool,
+            seeking: bool,
         });
 
 

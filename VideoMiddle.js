@@ -25,7 +25,7 @@ export default class VideoMiddle extends React.Component {
             this.setState({ playedSeconds: playedSeconds });
             this.props.progress(this.props.turntable.name, playedSeconds);
         
-        } else if (this.props.turntable.seek) {
+        } else if (this.props.turntable.seek || this.props.seeking) {
             this.player.seekTo(this.props.turntable.progress);           
             this.props.seek(this.props.turntable.name, false);
         }
