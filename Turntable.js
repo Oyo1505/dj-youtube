@@ -98,7 +98,8 @@ class Turntable extends React.Component {
 
     }
 
-    handleTouchLoopIn = (key) => {
+    handleTouchLoopIn = () => {
+        
         let newLoopInPosition = this.props.song.progress;
         let cloneLoop = Object.assign(this.state.loop);
         cloneLoop.loopIn.position = newLoopInPosition;
@@ -106,7 +107,8 @@ class Turntable extends React.Component {
         this.setState({ loop: cloneLoop });
     }
 
-    handleTouchLoopOut = (key) => {
+    handleTouchLoopOut = () => {
+        
         let newLoopOutPosition = this.props.song.progress;
         let cloneLoop = Object.assign(this.state.loop);
 
@@ -162,7 +164,7 @@ class Turntable extends React.Component {
         //translate  in px of the progress bar the percent when the transition end 
         let newValueSeconds = percent / 100 * durationSong;
 
-        //turntable
+        //turntable 
         let turntable = this.props.name;
 
         //can play

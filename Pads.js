@@ -19,7 +19,6 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 		this.props.action(this.state.toggle)
 	}
 	backward = () => {
-
 		this.props.backward();
 	}
 
@@ -27,12 +26,12 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 		this.props.getTouchPad(key);
 	}
 
-	onKeyEventLoopIn = (key) => {
-		this.props.handleTouchLoopIn(key)
+	onKeyEventLoopIn = () => {
+		this.props.handleTouchLoopIn();
 	}
 
-	onKeyEventLoopOut = (key) => {
-		this.props.handleTouchLoopOut(key)
+	onKeyEventLoopOut = () => {
+		this.props.handleTouchLoopOut();
 	}
 	render() {
 		const touchesPad = this.props.pads;
@@ -48,10 +47,10 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 				    			return this.toggle();
 				    			break;
 				    			case touchesPad[1]:
-				    			return this.onKeyEventLoopIn(touchesPad[1]);
+				    			return this.onKeyEventLoopIn();
 				    			break;
 				    			case touchesPad[2]:
-				    			return this.onKeyEventLoopOut(touchesPad[2]);
+				    			return this.onKeyEventLoopOut();
 				    			break;
 				    			case touchesPad[3]:
 				    			return this.onKeyEventPads(touchesPad[3]);
@@ -71,10 +70,9 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 				    >
 				</KeyboardEventHandler>
 				<div className="pads-buttons">
-					
-				
-					<button className="btn-pads icon-pads" onClick={this.backward} ><i className="icon icon-fast-foward"></i><span className="tiny-letters">5 sec</span></button>
-					
+					<button className="btn-pads"   style={{backgroundColor: this.props.toggleLoopIn ? "#32CD32" : "#6999a1" , visibility : this.props.looping ?  "hidden" : "visible"}}>Loop<br/>i<span className="tiny-letters"  >{this.props.pads[1].toUpperCase()}</span>n</button>
+					<button className="btn-pads"  style={{backgroundColor : this.props.looping ? "red" : "#6999a1" }}>Loop<br/>out<span className="tiny-letters"  >{this.props.pads[2].toUpperCase()}</span></button>		
+					<button className="btn-pads icon-pads" onClick={this.backward} ><i className="icon icon-fast-foward"></i><span className="tiny-letters">5 sec</span></button>					
 					<button className="btn-pads icon-pads" onClick={this.onClicktoggle} ><i className={this.props.canPlay ? 'icon icon-pause-dj' : 'icon icon-play-dj'}></i><span className="tiny-letters">{this.props.pads[0].toUpperCase()}</span></button>
 				</div>
 				

@@ -193,11 +193,6 @@ class DjApp extends React.Component {
         }
     }
 
-
-
-    
-
-
     render() {
         const { isFetching } = this.state.isFetching;
         
