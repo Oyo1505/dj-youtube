@@ -157,11 +157,11 @@ class DjApp extends React.Component {
         //turntabble right turn on progress to 0 and turn the video to play
         turntableRightClone[0].progress = duration;
         turntableRightClone[0].seek = bool;
-       // turntableRightClone[0].play = true;
+        turntableRightClone[0].play = true;
         //turntabble left on progress to 0 and turn the video to play
         turntableLeftClone[0].progress = duration;
         turntableLeftClone[0].seek = bool;
-        //turntableLeftClone[0].play = true;
+        turntableLeftClone[0].play = true;
         //setState the modifications
         this.setState({
             turntableLeft: turntableLeftClone,

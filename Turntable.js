@@ -56,8 +56,6 @@ class Turntable extends React.Component {
                 this.onSeekChangeLoop(positionLoopIn);
                 return true;
             }
-
-           // console.log(this.state.layerX, nextState.layerX)
         }
         return true;
     }
@@ -151,17 +149,15 @@ class Turntable extends React.Component {
     onSeekMouseDown = (event) => {
         // new position on the progress
         event.persist()
-        console.log('click')
         let layerX = event.nativeEvent.layerX;
-        let progressWidth = event.target.clientWidth;
-        let newPositionOnTheBar = parseInt(event.nativeEvent.layerX / progressWidth * 100);
-        this.setState({ layerX: newPositionOnTheBar })
+        this.setState({  layerX });
 
     }
 
-    onSeekChange = (event, bool) => {
-        
-        let percent = this.state.layerX;
+    onSeekChange = (event) => {
+       
+
+        let percent = parseInt(this.state.layerX / this.state.widthTarget *100);
         let durationSong = this.props.song.duration;
 
         //translate  in px of the progress bar the percent when the transition end 
@@ -176,6 +172,7 @@ class Turntable extends React.Component {
         this.props.changeProgressSong(this.props.name, newValueSeconds);
         this.setState({ toggle: true });
         this.props.action(turntable, true);
+           
     }
 
     backward = () => {
@@ -225,11 +222,12 @@ class Turntable extends React.Component {
                         <div 
                         ref="progressBar"
                         className="progressbar-music"
-                        onClick={this.onSeekMouseDown}
+                        onMouseDown={this.onSeekMouseDown}
+                        onMouseUp={this.onSeekChange}
                         data-max={this.props.song.duration} 
                         > 
 
-                        <div ref="cursorProgressBar" className="range-song-duration"  onAnimationEnd={this.onSeekChange} style={{width : pos + "px" }}> </div> 
+                        <div ref="cursorProgressBar" className="range-song-duration"  style={{width : pos + "px" }}> </div> 
                            
                         <div className="marker" style={{left: `${this.state.positionMarkers.touch1.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[3].toUpperCase()}</p></div>
                         <div className="marker" style={{left: `${this.state.positionMarkers.touch2.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[4].toUpperCase()}</p></div>
@@ -282,5 +280,3 @@ class Turntable extends React.Component {
     }
 }
 export default Turntable;
-
-/*<div ref="cursorProgressBar" className="range-song-duration"  onTransitionEnd={this.onSeekChange} style={{width : this.state.layerX + "px" }}> </div> */
