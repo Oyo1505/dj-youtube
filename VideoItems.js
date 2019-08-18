@@ -29,13 +29,13 @@ class VideoItems extends React.Component {
             videoItem = videos.map(video => {
 
                 let id = video.id.videoId
-                return <li key={id} className="video-item-dj"><div className="thumbnail-video-item"><img src={video.snippet.thumbnails.default.url}/></div><div> <span>{this.replaceString(video.snippet.title)}</span> </div><div className="btn-add-playlist" data-name={video.snippet.title} data-id={id} onClick={this.addToPlaylist} >Add to Playlist</div> </li>
+                return <li key={id} className="video-item-dj"><div className="thumbnail-video-item"><img src={video.snippet.thumbnails.default.url} alt="thumbnail video youtube"/></div><div> <span>{this.replaceString(video.snippet.title)}</span> </div><div className="btn-add-playlist" data-name={video.snippet.title} data-id={id} onClick={this.addToPlaylist} >Add to Playlist</div> </li>
             })
         }
         return (
             <div className="result-video-dj panel-back">
 				<ul>
-					<a onClick={this.onClear}> Close</a>
+					<p onClick={this.onClear}> Close</p>
 					<hr/>
 					{videoItem}
 

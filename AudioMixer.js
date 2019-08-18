@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-import { FacebookShareButton, TwitterShareButton, TwitterIcon, FacebookIcon } from 'react-share';
+import { FacebookShareButton, TwitterShareButton } from 'react-share';
 import FormContact from "../FormContact";
-import { Modal, Dropdown, DropdownButton } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import VolumeController from './VolumeController';
 import VideoMiddle from './VideoMiddle';
 import rewind from "../../sounds/kamelott/rewind.mp3";

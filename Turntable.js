@@ -111,7 +111,8 @@ class Turntable extends React.Component {
         let newLoopOutPosition = this.props.song.progress;
         let cloneLoop = Object.assign(this.state.loop);
 
-        if (this.state.loop.loopIn.position !== 0) {
+        if (this.state.loop.loopIn.position !== 0 ) {
+            console.log("in")
             cloneLoop.loopOut.position = newLoopOutPosition;
             cloneLoop.isLooping = !this.state.loop.isLooping;
             this.setState({ loop: cloneLoop });
