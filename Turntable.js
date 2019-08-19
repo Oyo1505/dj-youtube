@@ -18,6 +18,7 @@ class Turntable extends React.Component {
             video: null,
             title: '',
             toggle: false,
+            showVideo:false,
             layerX: 0,
             widthTarget: 0,
             seeking: false,
@@ -201,6 +202,25 @@ class Turntable extends React.Component {
            return newPositionOnTheBar
     }
 
+    showVideoItems = (event) => {
+        event.preventDefault();
+        this.setState({ showVideo: true }, () => {
+      document.addEventListener('click', this.closeMenu);
+    });
+    }
+
+    closeMenu =(event) => {
+    console.log("ddddd")
+    if (!this.refs.resultVideo.contains(event.target)) {
+        this.onClear
+    
+      this.setState({ showVideo: false }, () => {
+        document.removeEventListener('click', this.closeMenu);
+      });  
+      
+    }
+  }
+
     render() {
 
             if(this.props.song.play){
@@ -212,9 +232,9 @@ class Turntable extends React.Component {
                 <div className="input-dj-video">
                     <Form>
                         <FormGroup>
-                            <FormControl type="text" onChange={this.handleVideo} defaultValue="" className="input-dj-video-panel" placeholder="Search song on Youtube"/>
-                            {this.state.videos  &&
-                                <VideoItems delete={this.onDelete} videos={this.state.videos} action={this.getVideoMix} />    
+                            <FormControl ref="resultVideo" type="text" onChange={this.handleVideo} onFocus={this.showVideoItems} defaultValue="" className="input-dj-video-panel" placeholder="Search song on Youtube"/>
+                            {this.state.videos  && this.state.showVideo &&
+                                <VideoItems  delete={this.onDelete} videos={this.state.videos} action={this.getVideoMix} />    
                             }
                         </FormGroup>
                     </Form>
