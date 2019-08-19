@@ -1,12 +1,4 @@
-input[type=range]::-moz-range-progress {
-    background-color: green;
-    height: 1em;
-}
 
-input[type=range]::range-progress {
-    background-color: green;
-    height: 1em;
-}
 
 #dj-youtube {
     background-image: linear-gradient(to right, #4B5F6E, #D9C1BB);
@@ -16,6 +8,28 @@ input[type=range]::range-progress {
         font-family: Roboto-Thin;
     }
 
+    /*range firefox*/
+    input[type=range]::range-progress {
+    background-color: #F5F5F5;
+    }
+
+    input[type=range]::-moz-range-thumb {
+        background:  #6799A1;
+    
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        background: #6799A1;
+    }
+
+    input[type="range"] {
+    height: 0.4em;
+    -webkit-appearance:progress-bar;
+    }
+
+    input[type="range"]::ms-thumb {
+    background: #6799A1;
+    }
 }
 .modal-content{
         margin: 0  auto;
@@ -37,7 +51,14 @@ input[type=range]::range-progress {
     color: #FFFF;
     padding: 3px;
 }
+.footer-djyoutube{
+    margin: 0 auto;
+    text-align: center;
+    color: #000;
+    font-weight: 100;
+    font-size: 1rem;
 
+}
 .container-dj-app {
     display: flex;
     justify-content: center;
