@@ -6,6 +6,9 @@ import VolumeController from './VolumeController';
 import VideoMiddle from './VideoMiddle';
 import rewind from "../../sounds/kamelott/rewind.mp3";
 import sirenOne from '../../sounds/siren_dub_1.mp3';
+import sirenTwo from '../../sounds/siren_dub_2.mp3';
+import sirenThree from '../../sounds/siren_dub_3.mp3';
+import sirenFour from '../../sounds/siren_dub_4.mp3';
 import axios from 'axios'
 
 
@@ -156,13 +159,13 @@ class AudioMixer extends React.Component {
 
         const shareUrl = "https://www.henripierrerigoulet.fr/dj-youtube";
         const title = "Hey check this out! Visit my Website: https://www.henripierrerigoulet.fr/, Github : https://github.com/Oyo1505 or join me on Twitch : https://www.twitch.tv/oyo1505 #react #devweb";
-        const alarmsSounds = [sirenOne];
+        const alarmsSounds = [sirenOne, sirenTwo, sirenThree, sirenFour];
         let alarms;
 
          if(this.state.alarmsShowing){
            alarms = alarmsSounds.map((alarm, index) => {
                 
-                return <li className="alarm-item"   key={`alarm-${index}`} > <span onClick={this.playAlarm} ><audio src={alarm}></audio>{`Alarm-${index}`}</span><span> <i className='icon icon-volume-black '></i></span> </li>
+                return <button className="button-dub-siren alarm-item-list"   key={`alarm-${index}`} > <span  onClick={this.playAlarm} ><audio src={alarm}></audio>{`Siren-${index}`}</span></button>
             })
         }
 
@@ -259,10 +262,8 @@ class AudioMixer extends React.Component {
                         <button className="button-social-media-panel last" onClick={this.handleAlarmsMenu}><i className="icon icon-siren"></i>Dub Siren</button>
 
                         {this.state.alarmsShowing &&
-                              <div  ref="dropdownMenuAlarms" className="menu-share-panel" style={{ display : this.state.alarmsShowing ? 'block' : 'none'}}>
-                                <ul className="alarms-items">
+                              <div  ref="dropdownMenuAlarms" className="menu-alarm-panel" style={{ display : this.state.alarmsShowing ? 'block' : 'none'}}>
                                     {alarms}
-                                </ul>
                              </div>
                         }
                       
