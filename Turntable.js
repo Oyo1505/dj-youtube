@@ -22,11 +22,13 @@ class Turntable extends React.Component {
             layerX: 0,
             widthTarget: 0,
             seeking: false,
+            moveMarker:false,
+            positionMouse: 0,
             positionMarkers: {
-                touch1: { name: this.props.song.pads[3], position: 20 },
-                touch2: { name: this.props.song.pads[4], position: 40 },
-                touch3: { name: this.props.song.pads[5], position: 60 },
-                touch4: { name: this.props.song.pads[6], position: 80 },
+                touch1: { name: this.props.song.pads[3], position: 20, translate : 0 },
+                touch2: { name: this.props.song.pads[4], position: 40, translate : 0 },
+                touch3: { name: this.props.song.pads[5], position: 60, translate : 0 },
+                touch4: { name: this.props.song.pads[6], position: 80, translate : 0 },
             },
             loop: {
                 isLooping: false,
@@ -210,17 +212,66 @@ class Turntable extends React.Component {
     }
 
     closeMenu =(event) => {
-    console.log("ddddd")
     if (!this.refs.resultVideo.contains(event.target)) {
-        this.onClear
-    
       this.setState({ showVideo: false }, () => {
         document.removeEventListener('click', this.closeMenu);
       });  
-      
     }
   }
 
+  onMouseDragging(mouseDownX, startTranslate) {
+    return (e) => {
+      console.log('clientx: ' + e.clientX)
+      console.log('mouse down x: ' + mouseDownX)
+      console.log('startTranslate is ' + startTranslate);
+      if (this.holding) {
+        let newTranslate = (e.clientX - mouseDownX) + startTranslate;
+        if (newTranslate < 0) {
+          newTranslate = 0;
+        }
+        if (newTranslate > this.scrubBar.parentNode.offsetWidth - 2*R) {
+          newTranslate = this.scrubBar.parentNode.offsetWidth - 2*R;
+        }
+        this.setState({ translate: newTranslate })
+      }
+    };
+  }
+  handleMarker = (event) => {
+    
+        const marker = event.currentTarget;
+        const markerPos = event.clientX;
+        this.setState({moveMarker: !this.state.moveMarker,  })
+       // this.onDraggingFunctionRef = this.onMouseDragging(e.clientX, this.state.translate);
+        //document.addEventListener('mousemove', this.onDraggingFunctionRef)
+        document.addEventListener("mousemove", (e)=> {
+            console.log(event)
+            if(this.state.moveMarker === true){
+                const mousePosX = this.state.positionMouse;
+                let newDataX = mousePosX - markerPos;
+                marker.dataset.X = newDataX;
+                marker.style.transform = `translateX(${newDataX}px)`;
+             }
+         }) 
+  }
+
+  deleteDataSetOnMarker = (event) =>{
+
+    const marker = event.currentTarget;
+    this.setState({moveMarker: !this.state.moveMarker})
+    document.removeEventListener("mousemove", (e)=>{
+                console.log("in");
+            });
+        if(this.state.moveMarker === false){
+
+            marker.removeAttribute("data-x");
+            marker.style.removeProperty("transform");
+        }
+  }
+  mousePositionXOnProgressBar = (event)=> {
+   // console.log(this.state.moveMarker)
+    this.setState({positionMouse: event.clientX})
+
+  }
     render() {
 
             if(this.props.song.play){
@@ -228,7 +279,7 @@ class Turntable extends React.Component {
             }
 
         return (
-            <div className="module-dj">
+            <div className="module-dj" onMouseMove={this.mousePositionXOnProgressBar}>
                 <div className="input-dj-video">
                     <Form>
                         <FormGroup>
@@ -239,21 +290,30 @@ class Turntable extends React.Component {
                         </FormGroup>
                     </Form>
                 </div>
-                    <div className="panel-deck panel-back panel-default panel-turntable">
+                    <div className="panel-deck panel-back panel-default panel-turntable" >
                         <div 
                         ref="progressBar"
                         className="progressbar-music"
                         onMouseDown={this.onSeekMouseDown}
                         onMouseUp={this.onSeekChange}
                         data-max={this.props.song.duration} 
+
                         > 
 
                         <div ref="cursorProgressBar" className="range-song-duration"  style={{width : pos + "px" }}> </div> 
                            
-                        <div className="marker" style={{left: `${this.state.positionMarkers.touch1.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[3].toUpperCase()}</p></div>
-                        <div className="marker" style={{left: `${this.state.positionMarkers.touch2.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[4].toUpperCase()}</p></div>
-                        <div className="marker" style={{left: `${this.state.positionMarkers.touch3.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[5].toUpperCase()}</p></div> 
-                        <div className="marker" style={{left: `${this.state.positionMarkers.touch4.position}%`}}><p className="label label-info unselectable">{this.props.song.pads[6].toUpperCase()}</p></div> 
+                        <div className="marker" data-name={this.state.positionMarkers.touch1.name} onMouseDown={this.handleMarker} onMouseUp={this.deleteDataSetOnMarker} style={{left: `${this.state.positionMarkers.touch1.position}%`}}>
+                         <p className="label label-info unselectable">{this.props.song.pads[3].toUpperCase()}</p>
+                        </div>
+                        <div className="marker" onMouseDown={this.handleMarker} onMouseUp={this.deleteDataSetOnMarker} style={{left: `${this.state.positionMarkers.touch2.position}%`}}>
+                         <p className="label label-info unselectable">{this.props.song.pads[4].toUpperCase()}</p>
+                        </div>
+                        <div className="marker" onMouseDown={this.handleMarker} onMouseUp={this.deleteDataSetOnMarker} style={{left: `${this.state.positionMarkers.touch3.position}%`}}>
+                         <p className="label label-info unselectable">{this.props.song.pads[5].toUpperCase()}</p>
+                        </div> 
+                        <div className="marker" onMouseDown={this.handleMarker} onMouseUp={this.deleteDataSetOnMarker} style={{left: `${this.state.positionMarkers.touch4.position}%`}}>
+                         <p className="label label-info unselectable">{this.props.song.pads[6].toUpperCase()}</p>
+                        </div> 
                         <div className="timers">
                           <div className="text-duration-left">
                                  {this.props.song.progress <= 9 &&
