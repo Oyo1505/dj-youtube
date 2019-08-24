@@ -24,6 +24,7 @@ class Turntable extends React.Component {
             seeking: false,
             moveMarker:false,
             positionMouse: 0,
+            translate:0,
             positionMarkers: {
                 touch1: { name: this.props.song.pads[3], position: 20, translate : 0 },
                 touch2: { name: this.props.song.pads[4], position: 40, translate : 0 },
@@ -159,8 +160,6 @@ class Turntable extends React.Component {
     }
 
     onSeekChange = (event) => {
-       
-
         let percent = parseInt(this.state.layerX / this.state.widthTarget *100);
         let durationSong = this.props.song.duration;
 
@@ -219,59 +218,89 @@ class Turntable extends React.Component {
     }
   }
 
-  onMouseDragging(mouseDownX, startTranslate) {
-    return (e) => {
-      console.log('clientx: ' + e.clientX)
-      console.log('mouse down x: ' + mouseDownX)
-      console.log('startTranslate is ' + startTranslate);
-      if (this.holding) {
-        let newTranslate = (e.clientX - mouseDownX) + startTranslate;
+  onMouseDragging(mouseDownX, marker) {
+    return (event) => {
+       const percentPositionOnProgressBar = marker.style.left.substring(0, marker.style.left.length - 1);
+      if(this.state.moveMarker === true){
+            const mousePosX = event.clientX;
+            let newDataX = mousePosX - mouseDownX;
+            marker.dataset.X = newDataX;
+            marker.style.transform = `translateX(${newDataX}px)`;
+            this.updatePositionMarker(marker.dataset.name, newDataX, percentPositionOnProgressBar)
+        }
+      /*if (this.state.moveMarker) {
+        let newTranslate = (event.clientX - mouseDownX) + startTranslate;
         if (newTranslate < 0) {
           newTranslate = 0;
         }
-        if (newTranslate > this.scrubBar.parentNode.offsetWidth - 2*R) {
-          newTranslate = this.scrubBar.parentNode.offsetWidth - 2*R;
+        if (newTranslate > this.refs.progressBar.parentNode.offsetWidth - 2*R) {
+          newTranslate = this.refs.progressBar.parentNode.offsetWidth - 2*R;
         }
         this.setState({ translate: newTranslate })
-      }
+      }*/
     };
   }
+
+  convertPercentToPixel = (percent)=> {       
+        return  parseInt(percent / 100 * this.state.widthTarget);
+  }
+
+  convertPixelToPercent = (value)=> {       
+        return  parseInt(value / this.state.widthTarget * 100);
+  }
   handleMarker = (event) => {
-    
         const marker = event.currentTarget;
         const markerPos = event.clientX;
-        this.setState({moveMarker: !this.state.moveMarker,  })
-       // this.onDraggingFunctionRef = this.onMouseDragging(e.clientX, this.state.translate);
-        //document.addEventListener('mousemove', this.onDraggingFunctionRef)
-        document.addEventListener("mousemove", (e)=> {
-            console.log(event)
-            if(this.state.moveMarker === true){
-                const mousePosX = this.state.positionMouse;
-                let newDataX = mousePosX - markerPos;
-                marker.dataset.X = newDataX;
-                marker.style.transform = `translateX(${newDataX}px)`;
-             }
-         }) 
+       
+        this.setState({moveMarker: true })
+        this.onDraggingFunctionRef = this.onMouseDragging(markerPos, marker);
+
+        document.addEventListener('mousemove', this.onDraggingFunctionRef)
+        document.addEventListener('mouseup', this.deleteEventListener);
+
   }
 
-  deleteDataSetOnMarker = (event) =>{
+  updatePositionMarker = (name, positionX, percent) => {
 
-    const marker = event.currentTarget;
-    this.setState({moveMarker: !this.state.moveMarker})
-    document.removeEventListener("mousemove", (e)=>{
-                console.log("in");
-            });
-        if(this.state.moveMarker === false){
+    let pixelPosition = this.convertPercentToPixel(percent)
+    let newPostionInPixel = pixelPosition + positionX;
 
-            marker.removeAttribute("data-x");
-            marker.style.removeProperty("transform");
+    const markers = Object.assign(this.state.positionMarkers);
+
+        if(markers){
+          const ArrayMarker = Object.entries(markers);
+          const result = ArrayMarker.filter(marker => {
+            if(marker[1].name === name){
+               marker[1].position = this.convertPixelToPercent(newPostionInPixel);
+            }
+
+        });
         }
-  }
-  mousePositionXOnProgressBar = (event)=> {
-   // console.log(this.state.moveMarker)
-    this.setState({positionMouse: event.clientX})
+
 
   }
+
+
+  deleteEventListener = (event) =>{
+     console.log("UP")
+    this.setState({moveMarker: false});
+      let markers = document.querySelectorAll("[data-name]");
+      
+    markers.forEach((marker)=> {
+        if(marker.style.transform){
+           marker.style.removeProperty("transform");
+           marker.removeAttribute("data--x");
+        }
+      })
+   /* lo.style.removeProperty("transform");
+    lo.removeAttribute("data--x");
+   */
+    document.removeEventListener('mousemove', this.onDraggingFunctionRef);
+    document.removeEventListener('mouseup', this.deleteDataSetOnMarker);
+
+ 
+  }
+
     render() {
 
             if(this.props.song.play){
@@ -279,7 +308,7 @@ class Turntable extends React.Component {
             }
 
         return (
-            <div className="module-dj" onMouseMove={this.mousePositionXOnProgressBar}>
+            <div className="module-dj">
                 <div className="input-dj-video">
                     <Form>
                         <FormGroup>
@@ -302,16 +331,16 @@ class Turntable extends React.Component {
 
                         <div ref="cursorProgressBar" className="range-song-duration"  style={{width : pos + "px" }}> </div> 
                            
-                        <div className="marker" data-name={this.state.positionMarkers.touch1.name} onMouseDown={this.handleMarker} onMouseUp={this.deleteDataSetOnMarker} style={{left: `${this.state.positionMarkers.touch1.position}%`}}>
+                        <div className="marker" data-name={this.state.positionMarkers.touch1.name} onMouseDown={this.handleMarker}   style={{left: `${this.state.positionMarkers.touch1.position}%`}}>
                          <p className="label label-info unselectable">{this.props.song.pads[3].toUpperCase()}</p>
                         </div>
-                        <div className="marker" onMouseDown={this.handleMarker} onMouseUp={this.deleteDataSetOnMarker} style={{left: `${this.state.positionMarkers.touch2.position}%`}}>
+                        <div className="marker" data-name={this.state.positionMarkers.touch2.name} onMouseDown={this.handleMarker}  style={{left: `${this.state.positionMarkers.touch2.position}%`}}>
                          <p className="label label-info unselectable">{this.props.song.pads[4].toUpperCase()}</p>
                         </div>
-                        <div className="marker" onMouseDown={this.handleMarker} onMouseUp={this.deleteDataSetOnMarker} style={{left: `${this.state.positionMarkers.touch3.position}%`}}>
+                        <div className="marker" data-name={this.state.positionMarkers.touch3.name} onMouseDown={this.handleMarker}   style={{left: `${this.state.positionMarkers.touch3.position}%`}}>
                          <p className="label label-info unselectable">{this.props.song.pads[5].toUpperCase()}</p>
                         </div> 
-                        <div className="marker" onMouseDown={this.handleMarker} onMouseUp={this.deleteDataSetOnMarker} style={{left: `${this.state.positionMarkers.touch4.position}%`}}>
+                        <div className="marker" data-name={this.state.positionMarkers.touch4.name} onMouseDown={this.handleMarker}  style={{left: `${this.state.positionMarkers.touch4.position}%`}}>
                          <p className="label label-info unselectable">{this.props.song.pads[6].toUpperCase()}</p>
                         </div> 
                         <div className="timers">
