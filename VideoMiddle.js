@@ -47,7 +47,7 @@ export default class VideoMiddle extends React.Component {
                 width='49%'
                 
                 config={{  youtube: {
-                     playerVars: { 'showinfo': 1, 'origin':'http://localhost:3000','enablejsapi' : 1 }
+                     playerVars: { 'showinfo': 1,'enablejsapi' : 1 }
                  }, }}
                 volume={this.props.volume}
                 onDuration={this.onDuration}
