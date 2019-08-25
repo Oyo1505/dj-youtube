@@ -70,7 +70,7 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 				    >
 				</KeyboardEventHandler>
 				<div className="pads-buttons">
-					<button className="btn-pads"   style={{backgroundColor: this.props.toggleLoopIn ? "#32CD32" : "#6999a1" , visibility : this.props.looping ?  "hidden" : "visible"}}>Loop<br/>i<span className="tiny-letters"  >{this.props.pads[1].toUpperCase()}</span>n</button>
+					<button className="btn-pads icon-pads"  style={{visibility : this.props.looping ?  "hidden" : "visible"}}>Loop<br/>i<span className="tiny-letters"  >{this.props.pads[1].toUpperCase()}</span>n</button>
 					<button className="btn-pads"  style={{backgroundColor : this.props.looping ? "red" : "#6999a1" }}>Loop<br/>out<span className="tiny-letters"  >{this.props.pads[2].toUpperCase()}</span></button>		
 					<button className="btn-pads icon-pads" onClick={this.backward} ><i className="icon icon-fast-foward"></i><span className="tiny-letters">5 sec</span></button>					
 					<button className="btn-pads icon-pads" onClick={this.onClicktoggle} ><i className={this.props.canPlay ? 'icon icon-pause-dj' : 'icon icon-play-dj'}></i><span className="tiny-letters">{this.props.pads[0].toUpperCase()}</span></button>
@@ -89,7 +89,3 @@ import KeyboardEventHandler from 'react-keyboard-event-handler';
 	}
 }
 export default Pads;
-
-
-/*	<button className="btn-pads"  style={{backgroundColor: this.props.toggleLoopIn ? "#32CD32" : "#6999a1" , visibility : this.props.looping ?  "hidden" : "visible"}}>Loop<br/>i<span className="tiny-letters"  >{this.props.pads[1].toUpperCase()}</span>n</button>
-					<button className="btn-pads"  style={{backgroundColor : this.props.looping ? "red" : "#6999a1" }}>Loop<br/>out<span className="tiny-letters"  >{this.props.pads[2].toUpperCase()}</span></button>*/

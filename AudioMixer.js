@@ -256,7 +256,7 @@ class AudioMixer extends React.Component {
                                      
                                    
                                     
-                        <button className="button-social-media-panel" onClick={this.handlePullpUp}><audio preload="none" ref="rewind"  onEnded={this.canPlay}  src={rewind} ></audio><i className="icon icon-pullup"></i>Pull Up</button>
+                        <button className="button-social-media-panel" onClick={this.handlePullpUp}><audio preload="none" ref="rewind"    src={rewind} ></audio><i className="icon icon-pullup"></i>Pull Up</button>
                         <button className="button-social-media-panel "><i className="icon icon-keyboard"></i>ShortCuts</button>
                        
                         <button className="button-social-media-panel last" onClick={this.handleAlarmsMenu}><i className="icon icon-siren"></i>Dub Siren</button>
